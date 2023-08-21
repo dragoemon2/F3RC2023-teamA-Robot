@@ -1,17 +1,16 @@
+#include "robot.hpp"
 
-#include <mbed.h>
-#include "driveMotor.hpp"
-#include "driveBase.hpp"
-#include "parameters.hpp"
-#include "serialCommunication.hpp"
+Robot robot;
 
-#include "simulation.hpp"
-
+//mbed_error.cのWeak void mbed_error_hook()をオーバーロードする
 void mbed_error_hook(const mbed_error_ctx *error_context)
 {
-    //エラー発生時の処理
-    
+    //リブートする．
+    robot.reboot();
+}
 
-    //プログラムを再スタート
-    NVIC_SystemReset();
+int main(){
+    //開始
+    robot.game();
+    return 0;
 }
