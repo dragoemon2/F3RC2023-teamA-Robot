@@ -1,58 +1,64 @@
 #include <mbed.h>
 #include "serialCommunication.hpp"
+#include <chrono>
+
+
+
 
 using namespace std;
 
+int t= 0;
+
+
 SerialCommunication::SerialCommunication(int speed, PinName tx, PinName rx): serialPort(tx, rx) {
-    str = "";
-    func = [](string comment) {return;};
+    length = 0;
+    func = [](char* comment) {return;};
     serialPort.baud(speed);
+    
     serialPort.format(
         /* bits */ 8,
         /* parity */ SerialBase::None,
         /* stop bit */ 1
     );
-    serialPort.attach([this]() {interrupt();});
+    
+    #if 1
+    serialPort.attach([this]() {readChar();});
+    #endif
+    timer.start();
 }
 
-void SerialCommunication::writeline(string comment) {
+void SerialCommunication::writeline(char* comment, unsigned int size) {
     //書きこみ
-    serialPort.write((comment+'\n').c_str(), comment.size() + 1);
+    serialPort.write(comment+'\n', size + 1);
 }
 
 void SerialCommunication::readChar() {
-    //1文字読んで，改行だったら割り込みで関数funcを実行
+    char copied_str[64];
     char c;
-    while(serialPort.readable()){
-        serialPort.read(&c, 1);
-        if(c == '\n'){
-            func(str);
-            str = "";
-        }else{
-            str = str + c;
-        }
+
+    serialPort.read(&c, 1);
+    str[length] = c;
+
+    length++;
+
+    if(c == '\n'){
+        str[length-1] = '\0';
+        //_s1 = length;
+        length = 0;
+        strcpy(copied_str, str);
+        func(copied_str);
     }
-    _s1 = true;
-    
 }
 
-void SerialCommunication::attach(function<void(string)> f) {
+
+void SerialCommunication::attach(function<void(char*)> f) {
     //受信時に割り込みで実行される関数を設定
     func = f;
 }
 
+
 void SerialCommunication::detach(){
-    func = [](string comment) {return;};
+    func = [](char* comment) {return;};
 }
 
-void SerialCommunication::interrupt(){
-    flag = true;
-}
-
-void SerialCommunication::loop(){
-    if(flag){
-        flag=false;
-        readChar();
-    }
-}
 

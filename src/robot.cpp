@@ -1,5 +1,8 @@
 #include "robot.hpp"
 #include "laserPos.hpp"
+#include <chrono>
+
+using namespace std::chrono;
 
 union FloatUIntUnion {
     float floatValue;
@@ -15,7 +18,7 @@ Robot::Robot()
     buzzer(PA_0)
 {
     timer.start();
-    init_driveBase();
+    driveBase.attachLoop([this]{loop();});
     init_lasers();
     init_arms();
     init_status();
@@ -26,21 +29,19 @@ void Robot::game(){
 
 }
 
-void Robot::run0(){
-    //開始まで
-}
-
-void Robot::run1(){
+void Robot::run(unsigned int movement_id){
 
 }
 
-//モーターの初期化
-void Robot::init_driveBase(){
-    driveBase.attachLoop([this]{loop();});
+void Robot::stopCurrentMovement(){
+    driveBase.stopMovement();
+    //アームとかも止める
 }
+
 
 //レーザーの初期化
 void Robot::init_lasers(){
+    next_localization_time = duration_cast<milliseconds>(timer.elapsed_time()).count();
 
     //DT35
     Laser laserCore1(PC_1);
@@ -118,13 +119,21 @@ void Robot::init_lasers(){
     }
 }
 
+
 void Robot::init_arms(){
 
 }
 
-void Robot::init_communication(){
-    
+
+void Robot::wait_seconds(float seconds){
+    int started = duration_cast<microseconds>(timer.elapsed_time()).count();
+    while(duration_cast<microseconds>(timer.elapsed_time()).count() - started < 1000000*seconds){
+        loop();
+        wait_ns(1);
+    }
 }
+
+
 
 void Robot::init_status(){
     backUpRegister.open(0);
@@ -182,5 +191,8 @@ void Robot::reboot(){
 }
 
 void Robot::loop(){
-    driveBase.localization.loop();
+    if(duration_cast<milliseconds>(timer.elapsed_time()).count() > next_localization_time){
+        driveBase.localization.loop();
+        next_localization_time += 1000/SPEED_ADJUSTMENT_FREQUENCY;
+    }
 }

@@ -30,20 +30,21 @@ class Robot
         //タイマー
         Timer timer;
 
-        void game();
+        int next_localization_time;
 
-        void init_driveBase();
+        void game();
         void init_lasers();
         void init_arms();
-        void init_communication();
 
         void reboot();
         void init_status();
 
-        void loop();
+        void wait_seconds(float seconds);
 
-        void run0();
-        void run1();
+        void loop();
+        void stopCurrentMovement();
+
+        void run(unsigned int movement_id);
         Robot();
 
         int movementNum = 0;

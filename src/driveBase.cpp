@@ -25,7 +25,7 @@ void DriveBase::resetPID(){
 }
 
 //速度を指定して移動
-void DriveBase::go(float targetSpeedX, float targetSpeedY, float targetSpeedD){
+void DriveBase::go(float targetSpeedX, float targetSpeedY, float targetSpeedD, bool absolute){
     float targetSpeedR = sqrtf(targetSpeedX*targetSpeedX + targetSpeedY*targetSpeedY);
 
     _s1 = int(targetSpeedX);
@@ -65,11 +65,16 @@ void DriveBase::go(float targetSpeedX, float targetSpeedY, float targetSpeedD){
         targetSpeedD = localization.rotateSpeed - MAX_ROTATE_ACCELERATION / SPEED_ADJUSTMENT_FREQUENCY;
     }
 
-    
+    float vx, vy;
+    if(absolute){
+        //X, Yに回転行列をかける
+        vx = cos(localization.direction)*targetSpeedX + sin(localization.direction)*targetSpeedY;
+        vy = -sin(localization.direction)*targetSpeedX + cos(localization.direction)*targetSpeedY;
 
-    //X, Yに回転行列をかける
-    float vx = cos(localization.direction)*targetSpeedX + sin(localization.direction)*targetSpeedY;
-    float vy = -sin(localization.direction)*targetSpeedX + cos(localization.direction)*targetSpeedY;
+    }else{
+        vx = targetSpeedX;
+        vy = targetSpeedX;
+    }
 
     //各モーターの速度
     float speeds[4]; //モーターの速度
@@ -253,6 +258,23 @@ void DriveBase::goCurveTo(float start_dir, float end_dir, float X, float Y, floa
         float centerX = X - radius2*sin(end_dir);
         float centerY = Y + radius2*cos(end_dir);
         runAlongArch(radius2, centerX, centerY, start_dir, end_dir, D, stop, num);
+    }
+}
+
+void DriveBase::goPtr(bool absolute){
+    go(*targetSpeedXPtr, *targetSpeedYPtr, *targetSpeedDPtr, absolute);
+}
+
+void DriveBase::goPtrStart(float* targetSpeedX, float* targetSpeedY, float* targetSpeedD, bool absolute, bool idle){
+    targetSpeedXPtr = targetSpeedX;
+    targetSpeedYPtr = targetSpeedY;
+    targetSpeedDPtr = targetSpeedD;
+    movementTicker.attach([this, absolute] {goPtr(absolute);}, std::chrono::milliseconds(1000)/SPEED_ADJUSTMENT_FREQUENCY);
+    if(idle){
+        while(1){
+            loop();
+            wait_ns(1);
+        }
     }
 }
 
