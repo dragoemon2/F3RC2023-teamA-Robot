@@ -44,6 +44,10 @@ class DriveBase{
         int _s1;
         int _s2;
 
+        float lastTargetSpeedX = 0.0f;
+        float lastTargetSpeedY = 0.0f;
+        float lastTargetSpeedD = 0.0f;
+
     private:
         void goPtr(bool absolute=false);
         void go(float targetSpeedX, float targetSpeedY, float targetSpeedD, bool absolute=false);
