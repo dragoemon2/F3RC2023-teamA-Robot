@@ -1,6 +1,11 @@
 #include "movementManager.hpp"
 #include <string>
 #include "parameters.hpp"
+#include <chrono>
+
+
+#define MOTION_TIME_OUT (500)
+#define CONNECTION_TIME_OUT (5000)
 
 /*
 #define ADJUSTMENT_SPEED_LEFT (100.0f)
@@ -11,6 +16,8 @@
 #define HAND_SPEED_RIGHT (100.0f)
 #define HAND_ROTATE_SPEED (0.5f)
 */
+
+using namespace std::chrono;
 
 
 enum Button{
@@ -39,14 +46,12 @@ inline float joystick_filter(float value, float dead=0.3f){
     }
 }
 
-
-
-
 //初期化
 MovementManager::MovementManager(): serial(115200, PA_9, PA_10)
 {
     flag = false; //flagを下げておく
     serial.attach([this](char* str) {update(str);});
+    timer.start();
 }
 
 void MovementManager::update(char* str){
@@ -103,11 +108,22 @@ void MovementManager::update(char* str){
         mode = HAND_MODE;
     }
     last_hand_mode_button = (button_mask >> Button::TRIANGLE) & 1;
+
+
+    connected_before = true;
+    last_connected_time = duration_cast<milliseconds>(timer.elapsed_time()).count();
 }
 
 
 
 void MovementManager::setTargetSpeed(){
+    if(MotionTimeOutOccured()){
+        targetSpeedx = 0;
+        targetSpeedy = 0;
+        targetSpeedD = 0;
+        return;
+    }
+
     if(mode == HAND_MODE){
         //手動モード中
         if(left_rotate_button && !right_rotate_button){
@@ -139,4 +155,12 @@ void MovementManager::setTargetSpeed(){
 
 void MovementManager::sendMessageToController(int message){
     serial.writeline(to_string(message));
+}
+
+bool MovementManager::MotionTimeOutOccured(){
+    return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > MOTION_TIME_OUT);
+}
+
+bool MovementManager::ConnectionTimeOutOccured(){
+    return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "serialCommunication.hpp"
-
+#include <mbed.h>
 
 enum MESSAGE_TO_CONTROLLER{
     START_AUTO_MOVE_MODE,
@@ -44,6 +44,11 @@ class MovementManager{
         bool last_hand_mode_button = false;
         bool last_auto_mode_button = false;
 
+        int last_connected_time;
+        bool connected_before = false;
+
+        Timer timer;
+
 
     public:
         SerialCommunication serial;
@@ -69,6 +74,8 @@ class MovementManager{
         void update(char* str);
         void setTargetSpeed();
         void sendMessageToController(int message);
+        bool MotionTimeOutOccured();
+        bool ConnectionTimeOutOccured();
 
         MovementManager();
 };

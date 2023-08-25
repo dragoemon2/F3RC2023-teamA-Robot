@@ -3,7 +3,7 @@
 #pragma once
 
 
-#define R1 (1)
+#define USING_R1 (1)
 #define SIMULATION (0)
 
 //定数
@@ -22,7 +22,7 @@
 
 //モーターのPIDゲイン
 
-#if(R1)
+#if(USING_R1)
 
 #define MOTOR_0_KP_1 (1.3f)
 #define MOTOR_0_KI_1 (0.06f)

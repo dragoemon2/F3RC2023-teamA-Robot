@@ -32,6 +32,7 @@ void R1::game(){
 void R1::run(unsigned int movement_id){
     auto_moving = true;
     printf("auto_movement %d\n", movement_id);
+    //動線をここに書く．
     switch (movement_id)
     {
     case GOTO_FIRST_PRODUCT_STORAGE:
@@ -74,7 +75,11 @@ void R1::run(unsigned int movement_id){
         printf("pass");
         break;
     }
+
+    //デバッグ用
     wait_seconds(3);
+
+
     auto_moving = false;
 }
 
@@ -124,8 +129,6 @@ void R1::adjustment(){
     printf("\n");
 }
 
-
-
 void R1::loop(){
     if(duration_cast<milliseconds>(timer.elapsed_time()).count() > next_localization_time){
         driveBase.localization.loop();
@@ -134,6 +137,10 @@ void R1::loop(){
 
     if(mm.mode == HAND_MODE && auto_moving){
         driveBase.stopMovement();
+    }
+
+    if(mm.ConnectionTimeOutOccured()){
+        mm.mode = COMPLETELY_AUTO_MODE;
     }
 }
 

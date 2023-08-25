@@ -21,7 +21,20 @@
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/STM32Cube_FW/**",
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/",
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/TARGET_NUCLEO_F446RE/**",
-                "~/.platformio/packages/framework-mbed/platform/cxxsupport"
+                "~/.platformio/packages/framework-mbed/platform/cxxsupport",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/device/rtos/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/CMSIS_5/CMSIS/RTOS2/Include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/device/RTE/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/device",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Config",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Include1",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/events/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/targets/TARGET_Cypress/TARGET_PSOC6/mtb-pdl-cat1/cmsis/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/platform/include/platform",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/drivers/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/hal/include/hal"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
