@@ -4,13 +4,16 @@
 
 class R1: public Robot
 {
-    R1();
-    void moveHand();
-    void loop();
-    void run(unsigned int movement_id);
-    void wait_seconds(float seconds);
-    void next();
+    public:
+        R1();
+        void moveHand();
+        void adjustment();
+        void loop();
+        void run(unsigned int movement_id);
+        void wait_seconds(float seconds);
+        void next();
+        void game();
 
-    bool auto_moving;
-    MovementManager mm;
+        bool auto_moving;
+        MovementManager mm;
 };

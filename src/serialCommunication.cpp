@@ -27,9 +27,9 @@ SerialCommunication::SerialCommunication(int speed, PinName tx, PinName rx): ser
     timer.start();
 }
 
-void SerialCommunication::writeline(char* comment, unsigned int size) {
+void SerialCommunication::writeline(std::string comment) {
     //書きこみ
-    serialPort.write(comment+'\n', size + 1);
+    serialPort.write((comment+'\n').c_str(), comment.size() + 1);
 }
 
 void SerialCommunication::readChar() {

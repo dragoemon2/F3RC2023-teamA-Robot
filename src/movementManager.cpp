@@ -1,12 +1,17 @@
 #include "movementManager.hpp"
+#include <string>
+#include "parameters.hpp"
 
+/*
 #define ADJUSTMENT_SPEED_LEFT (100.0f)
-#define ADJUSTMENT_SPEED_RIGHT (10.0f)
+#define ADJUSTMENT_SPEED_RIGHT (30.0f)
 #define ADJUSTMENT_ROTATE_SPEED (0.5f)
 
 #define HAND_SPEED_LEFT (1500.0f)
 #define HAND_SPEED_RIGHT (100.0f)
 #define HAND_ROTATE_SPEED (0.5f)
+*/
+
 
 enum Button{
     UP,
@@ -38,7 +43,8 @@ inline float joystick_filter(float value, float dead=0.3f){
 
 
 //初期化
-MovementManager::MovementManager(){
+MovementManager::MovementManager(): serial(115200, PA_9, PA_10)
+{
     flag = false; //flagを下げておく
     serial.attach([this](char* str) {update(str);});
 }
@@ -61,39 +67,42 @@ void MovementManager::update(char* str){
     rjoystick_y = (float(ry))/128;
 
     //回転
-    left_rotate_button = (button_mask << Button::L2) & 1;
-    right_rotate_button = (button_mask << Button::R2) & 1;
+    left_rotate_button = (button_mask >> Button::L2) & 1;
+    right_rotate_button = (button_mask >> Button::R2) & 1;
 
     //次の実行
-    if(((button_mask << Button::CIRCLE) & 1) && !last_next_button){
+    if(((button_mask >> Button::CIRCLE) & 1) && !last_next_button){
         if(mode == HAND_MODE){
+            flag = false;
             mode = AUTO_MODE;
         }else{
             flag = true;
         }
     }
-    last_next_button = (button_mask << Button::CIRCLE) & 1;
+    last_next_button = (button_mask >> Button::CIRCLE) & 1;
 
-    if(((button_mask << Button::L1) & 1) && !last_decrement_button){
+    if(((button_mask >> Button::LEFT) & 1) && !last_decrement_button){
+        if(!flag){
+            if(movement_id > 0){
+                movement_id--;
+            }
+        }
+    }
+    last_decrement_button = (button_mask >> Button::LEFT) & 1;
+
+
+    if(((button_mask >> Button::RIGHT) & 1) && !last_increment_button){
         if(!flag){
             movement_id++;
         }
     }
-    last_decrement_button = (button_mask << Button::L1) & 1;
+    last_increment_button = (button_mask >> Button::RIGHT) & 1;
 
 
-    if(((button_mask << Button::L1) & 1) && !last_decrement_button){
-        if(!flag){
-            movement_id--;
-        }
-    }
-    last_increment_button = (button_mask << Button::L1) & 1;
-
-
-    if(((button_mask << Button::TRIANGLE) & 1) && !last_hand_mode_button){
+    if(((button_mask >> Button::TRIANGLE) & 1) && !last_hand_mode_button){
         mode = HAND_MODE;
     }
-    last_hand_mode_button = (button_mask << Button::TRIANGLE) & 1;
+    last_hand_mode_button = (button_mask >> Button::TRIANGLE) & 1;
 }
 
 
@@ -105,10 +114,12 @@ void MovementManager::setTargetSpeed(){
             targetSpeedD = HAND_ROTATE_SPEED;
         }else if(!left_rotate_button && right_rotate_button){
             targetSpeedD = -HAND_ROTATE_SPEED;
+        }else{
+            targetSpeedD = 0;
         }
+        targetSpeedy = - joystick_filter(ljoystick_x)*HAND_SPEED_LEFT - joystick_filter(rjoystick_x)*HAND_SPEED_RIGHT;
+        targetSpeedx = - joystick_filter(ljoystick_y)*HAND_SPEED_LEFT - joystick_filter(rjoystick_y)*HAND_SPEED_RIGHT;
 
-        targetSpeedx = joystick_filter(ljoystick_x)*HAND_SPEED_LEFT + joystick_filter(ljoystick_x)*HAND_SPEED_RIGHT;
-        targetSpeedy = joystick_filter(ljoystick_y)*HAND_SPEED_LEFT + joystick_filter(ljoystick_y)*HAND_SPEED_RIGHT;
 
     }else if(mode == AUTO_MODE && !flag){
         //調整中
@@ -116,9 +127,16 @@ void MovementManager::setTargetSpeed(){
             targetSpeedD = ADJUSTMENT_ROTATE_SPEED;
         }else if(!left_rotate_button && right_rotate_button){
             targetSpeedD = -ADJUSTMENT_ROTATE_SPEED;
+        }else{
+            targetSpeedD = 0;
         }
 
-        targetSpeedx = joystick_filter(ljoystick_x)*ADJUSTMENT_SPEED_LEFT + joystick_filter(ljoystick_x)*ADJUSTMENT_SPEED_RIGHT;
-        targetSpeedy = joystick_filter(ljoystick_y)*ADJUSTMENT_SPEED_LEFT + joystick_filter(ljoystick_y)*ADJUSTMENT_SPEED_RIGHT;
+        targetSpeedy = - joystick_filter(ljoystick_x)*ADJUSTMENT_SPEED_LEFT - joystick_filter(rjoystick_x)*ADJUSTMENT_SPEED_RIGHT;
+        targetSpeedx = - joystick_filter(ljoystick_y)*ADJUSTMENT_SPEED_LEFT - joystick_filter(rjoystick_y)*ADJUSTMENT_SPEED_RIGHT;
     }
+}
+
+
+void MovementManager::sendMessageToController(int message){
+    serial.writeline(to_string(message));
 }

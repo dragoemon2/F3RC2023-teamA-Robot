@@ -26,7 +26,7 @@ class SerialCommunication{
         void detach();
 
         //一行送信(末尾の'\n'は必要なし)
-        void writeline(char* comment, unsigned int size);
+        void writeline(std::string comment);
 
         int _s1;
         

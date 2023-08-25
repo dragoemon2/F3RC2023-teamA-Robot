@@ -2,6 +2,14 @@
 
 #include "serialCommunication.hpp"
 
+
+enum MESSAGE_TO_CONTROLLER{
+    START_AUTO_MOVE_MODE,
+    START_ADJUSTMENT_MODE,
+    START_HAND_MODE,
+    ERROR_RAISED,
+};
+
 /*
 手動機R1の動きを決定するためのクラス
 
@@ -37,8 +45,6 @@ class MovementManager{
         bool last_auto_mode_button = false;
 
 
-        void setTargetSpeed();
-
     public:
         SerialCommunication serial;
 
@@ -48,7 +54,7 @@ class MovementManager{
         int movement_id = 0;
 
         //自動モードか手動モードか
-        int mode = HAND_MODE;
+        int mode = AUTO_MODE;
 
         //ジョイスティックやボタンの値から検出した目標の速度
         float targetSpeedx = 0;
@@ -61,6 +67,8 @@ class MovementManager{
 
         //受信があると実行される
         void update(char* str);
+        void setTargetSpeed();
+        void sendMessageToController(int message);
 
         MovementManager();
 };
