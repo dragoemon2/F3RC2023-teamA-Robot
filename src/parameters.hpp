@@ -10,8 +10,6 @@
 #define PI (3.141592653589793)
 #define SQRT2 (1.414213562373095)
 
-//全部まだ仮の値
-
 //固定値
 #define ENC_RES_MAX (500) //ロータリエンコーダーの分解能
 #define TRED_RADIUS (125.4f) //中心からオムニホイールの距離[mm]
@@ -107,6 +105,15 @@
 #define DRIVEBASE_ROTATE_KD (DRIVEBASE_KD)
 
 #endif
+
+//フィールドパラメーター
+#define SOUTH_WALL_Y (38)
+#define NORTH_WALL_Y (2400-38)
+#define WEST_WALL_X (38)
+#define EAST_WALL_X (4500-38)
+
+#define ROBOTSIZE (165)
+
 
 //移動パラメータ
 #define MAX_ACCELERATION (20000) //最大加速度 [mm/s^2]

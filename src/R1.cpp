@@ -1,4 +1,5 @@
 #include "R1.hpp"
+#include "parameters.hpp"
 
 using namespace std::chrono;
 
@@ -16,10 +17,11 @@ enum AUTO_MOVEMENT{
     GOTO_SECOND_DELIVERY, //コンテナに梱包し，受け渡し地点の手前まで移動2
     GOTO_THIRD_PRODUCT_STORAGE, //受け渡しを行い，商品置き場まで移動3
     GOTO_THIRD_CONTAINER_STORAGE, //ボトルを持ち，コンテナ置き場まで移動3
+    GO_FRONTOF_POSTZONE, //ポストゾーンの手前まで移動
     GOTO_POSTZONE1, //ボトルを持ち，ポストゾーン1に移動
 };
 
-R1::R1(): Robot()
+R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([this](int x){wait_seconds(x);})
 {
     
 }
@@ -36,40 +38,119 @@ void R1::run(unsigned int movement_id){
     switch (movement_id)
     {
     case GOTO_FIRST_PRODUCT_STORAGE:
-        /* code */
+        driveBase.localization.setPosition(WEST_WALL_X + ROBOTSIZE, NORTH_WALL_Y - ROBOTSIZE, -PI/2); //壁当てでスタート
+        bottleArm.down(false);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2); //ペットボトル置き場手前
         break;
 
     case GOTO_FIRST_CONTAINER_STORAGE:
-        /* code */
+        //ペットボトル起き場まで
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+
+        //ペットボトル回収
+        bottleArm.close(true);
+        bottleArm.up(false);
+
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
         break;
 
     case GOTO_FIRST_DELIVERY:
-        /* code */
+        
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        
+        containerArm.close(true);
+        bottleArm.down(false);
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
+        driveBase.rotateTo(0);
+        bottleArm.open(true);
+        driveBase.goTo(WEST_WALL_X + 1900, SOUTH_WALL_Y + 1200, 0);
         break;
     
     case GOTO_SECOND_PRODUCT_STORAGE:
-        /* code */
+        driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+
+        //受け渡し
+        //R1から受け渡し検知信号を受信
+        wait_seconds(1); 
+        containerArm.open(false);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
+        bottleArm.down(false);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
         break;
 
     case GOTO_SECOND_CONTAINER_STORAGE:
-        /* code */
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
+
+        bottleArm.close(true);
+        bottleArm.up(false);
+
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
+
         break;
 
     case GOTO_SECOND_DELIVERY:
-        /* code */
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
+        
+        containerArm.close(true);
+        bottleArm.down(false);
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
+        driveBase.rotateTo(0);
+        bottleArm.open(true);
+        driveBase.goTo(WEST_WALL_X + 1900, SOUTH_WALL_Y + 1200, 0);
         break;
 
     case GOTO_THIRD_PRODUCT_STORAGE:
-        /* code */
+        driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+
+        //受け渡し
+        //R1から受け渡し検知信号を受信
+        wait_seconds(1); 
+        containerArm.open(false);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
+        bottleArm.down(false);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         break;
 
     case GOTO_THIRD_CONTAINER_STORAGE:
-        /* code */
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 100, -PI/2);
+        
+        //ペットボトル回収
+        bottleArm.close(true);
+        bottleArm.up(false);
+
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
+        break;
+
+    case GO_FRONTOF_POSTZONE:
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);//コンテナ置き場手前に移動
+        containerArm.close(true);
+        bottleArm.down(false);
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
+        bottleArm.open(true);
+        driveBase.goTo(WEST_WALL_X+2200, SOUTH_WALL_Y + ROBOTSIZE + 150, -PI/2);
+
+        
         break;
 
     case GOTO_POSTZONE1:
-        /* code */
+        driveBase.localization.setPosition(WEST_WALL_X+2126+250, driveBase.localization.posY, -PI/2);
+        driveBase.goTo(WEST_WALL_X+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         break;
+        
     
     default:
         printf("pass");
