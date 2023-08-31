@@ -33,7 +33,6 @@ class Robot
         int next_localization_time;
 
         void game();
-        void init_lasers();
         void init_arms();
 
         void reboot();

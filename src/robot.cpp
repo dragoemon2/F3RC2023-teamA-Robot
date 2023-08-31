@@ -19,7 +19,6 @@ Robot::Robot()
 {
     timer.start();
     driveBase.attachLoop([this]{loop();});
-    init_lasers();
     init_arms();
     init_status();
 }
@@ -36,87 +35,6 @@ void Robot::run(unsigned int movement_id){
 void Robot::stopCurrentMovement(){
     driveBase.stopMovement();
     //アームとかも止める
-}
-
-
-//レーザーの初期化
-void Robot::init_lasers(){
-    next_localization_time = duration_cast<milliseconds>(timer.elapsed_time()).count();
-
-    //DT35
-    Laser laserCore1(PC_1);
-    Laser laserCore2(PC_0);
-
-    //VL53L0X
-    TOFLaser laserCore3(0, PA_13, PB_3, PB_10);
-    TOFLaser laserCore4(1, PA_13, PB_3, PB_10);
-
-    //----ロボット上でのレーザーの位置の指定----
-
-    LaserPos laser1(
-        100, //DT35レーザー位置のx座標
-        -150, //DT35レーザー位置のy座標
-        SOUTH,
-        laserCore1
-    );
-
-    LaserPos laser2(
-        -100, //DT35レーザー位置のx座標
-        -150, //DT35レーザー位置のy座標
-        SOUTH,
-        laserCore2
-    );
-
-    LaserPos laser3(
-        -150, //VL53L0Xレーザー位置のx座標
-        -100, //VL53L0Xレーザー位置のy座標
-        WEST, //ロボットが東を向いた時の向き
-        laserCore3
-    );
-
-    LaserPos laser4(
-        -150, //VL53L0Xレーザー位置のx座標
-        100, //VL53L0Xレーザー位置のy座標
-        WEST, //ロボットが東を向いた時の向き
-        laserCore4
-    );
-
-
-    //レーザー2つ
-    LaserPairUse lu1(
-        1000, //X座標の最小値
-        2000, //X座標の最大値
-        0, //Y座標の最小値
-        2500, //Y座標の最大値
-        PI/8, //方向のずれの範囲
-        SOUTH, //壁の方角
-        38, //原点から壁の距離
-        laser1, //レーザー
-        laser2 //レーザー
-    );
-
-    //レーザー1つ
-    LaserUse lu2(
-        1000, //X座標の最小値
-        2000, //X座標の最大値
-        0, //Y座標の最小値
-        500, //Y座標の最大値
-        PI/8, //方向のずれの範囲
-        WEST, //壁の方角
-        2000, //原点から壁の距離
-        laser3 //レーザー
-    );
-
-    laserPairUses.push_back(lu1);
-    laserUses.push_back(lu2);
-
-    for(LaserUse lu: laserUses){
-        driveBase.localization.addLocalization([this, &lu](float* X, float* Y, float* D) { lu.scan(X, Y, D); }, 0);
-    }
-
-    for(LaserPairUse lu: laserPairUses){
-        driveBase.localization.addLocalization([this, &lu](float* X, float* Y, float* D) { lu.scan(X, Y, D); }, 1);
-    }
 }
 
 

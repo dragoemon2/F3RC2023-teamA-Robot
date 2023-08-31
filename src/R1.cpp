@@ -1,15 +1,7 @@
 #include "R1.hpp"
 #include "parameters.hpp"
 
-#include "tofLaser.hpp"
-#include "laserPos.hpp"
-#include "laserUse.hpp"
-
 using namespace std::chrono;
-
-#define STR(var) #var
-
-
 
 //自動で動かす箇所．この間に手動調整を入れる
 enum AUTO_MOVEMENT{
@@ -25,59 +17,31 @@ enum AUTO_MOVEMENT{
     GOTO_POSTZONE1, //ボトルを持ち，ポストゾーン1に移動
 };
 
-R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([this](int x){wait_seconds(x);})
+R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([this](int x){wait_seconds(x);}), lasers(driveBase)
 {
-    init_lasers();
-}
-
     
-
-
-void R1::init_lasers(){
-    //レーザー
-    TOFLaser laserCore1(1, A0);
-    TOFLaser laserCore2(2, A1);
-    TOFLaser laserCore3(3, A2);
-    TOFLaser laserCore4(4, A3);
-
-    //レーザーの位置
-    LaserPos laser1(130,-165,SOUTH,laserCore1);
-    LaserPos laser2(-130,-165,SOUTH,laserCore2);
-    LaserPos laser3(-165,0,WEST,laserCore3);
-    LaserPos laser4(165,-150,WEST,laserCore4);
-
-    //レーザーの使用パターン
-    //-----------------------------------------------X座標の最小値-----------------------------------X座標の最大値--------------------------------------Y座標の最小値------------------------------Y座標の最大値----------角度の許容誤差--壁の方角----壁の位置----レーザー位置---レーザー位置---
-    LaserPairUse  laserpairuse_on_westwall(     WEST_WALL_X + ROBOTSIZE,                   WEST_WALL_X + ROBOTSIZE + 800,                    0,                                      2400,                           0.5f,      WEST,   WEST_WALL_X,   laser1,     laser2);
-    LaserPairUse  laserpairuse_on_northwall(    WEST_WALL_X + ROBOTSIZE + 850 + 38 + 150,  WEST_WALL_X + 850 + 38 + 1200 - ROBOTSIZE - 150,  SOUTH_WALL_Y + 500,                     2400,                           0.1f,      NORTH,  NORTH_WALL_Y,  laser1,     laser2);
-    LaserUse      laseruse_on_westwall(         WEST_WALL_X + ROBOTSIZE,                   WEST_WALL_X + ROBOTSIZE + 3000,                   SOUTH_WALL_Y + 550 + ROBOTSIZE,         NORTH_WALL_Y - 550 - ROBOTSIZE, 0.1f,      WEST,   WEST_WALL_X,   laser3);
-    LaserUse      laseruse_on_product_storage(  WEST_WALL_X + ROBOTSIZE,                   WEST_WALL_X + 850 - ROBOTSIZE,                    SOUTH_WALL_Y,                           SOUTH_WALL_Y + 500,             0.1f,      SOUTH,  SOUTH_WALL_Y,  laser4);
-    LaserUse      laseruse_on_container_storage(WEST_WALL_X + 850 + 38 + ROBOTSIZE,        WEST_WALL_X + 850 + 38 + 1200 - ROBOTSIZE,        SOUTH_WALL_Y,                           SOUTH_WALL_Y + 500,             0.1f,      SOUTH,  SOUTH_WALL_Y,  laser4);
-    LaserUse      laseruse_on_postzone1(        WEST_WALL_X + 2126 + ROBOTSIZE,            WEST_WALL_X + 2126 + 500 - ROBOTSIZE,             SOUTH_WALL_Y,                           SOUTH_WALL_Y + 1000,            0.05f,     SOUTH,  SOUTH_WALL_Y,  laser4);
-
-    driveBase.localization.addLocalization([this, &laserpairuse_on_westwall](float* X, float* Y, float* D) { laserpairuse_on_westwall.scan(X, Y, D); }, 0);
-    driveBase.localization.addLocalization([this, &laserpairuse_on_northwall](float* X, float* Y, float* D) { laserpairuse_on_northwall.scan(X, Y, D); }, 1);
-    driveBase.localization.addLocalization([this, &laseruse_on_westwall](float* X, float* Y, float* D) { laseruse_on_westwall.scan(X, Y, D); }, 2);
-    driveBase.localization.addLocalization([this, &laseruse_on_product_storage](float* X, float* Y, float* D) { laseruse_on_product_storage.scan(X, Y, D); }, 3);
-    driveBase.localization.addLocalization([this, &laseruse_on_container_storage](float* X, float* Y, float* D) { laseruse_on_container_storage.scan(X, Y, D); }, 4);
-    driveBase.localization.addLocalization([this, &laseruse_on_postzone1](float* X, float* Y, float* D) { laseruse_on_postzone1.scan(X, Y, D); }, 5);
 }
-
 
 void R1::game(){
     next();
 }
 
+
 void R1::run(unsigned int movement_id){
     auto_moving = true;
     printf("auto_movement %d\n", movement_id);
     //動線をここに書く．
+    
     switch (movement_id)
     {
+    //ペットボトル置き場手前まで移動する
     case GOTO_FIRST_PRODUCT_STORAGE:
         driveBase.localization.setPosition(WEST_WALL_X + ROBOTSIZE, NORTH_WALL_Y - ROBOTSIZE, -PI/2); //壁当てでスタート
+        lasers.pair.activate(WEST, WEST_WALL_X);
+        lasers.front.activate(SOUTH, SOUTH_WALL_Y);
         bottleArm.down(false);
         driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2); //ペットボトル置き場手前
+
         break;
 
     case GOTO_FIRST_CONTAINER_STORAGE:
@@ -88,13 +52,16 @@ void R1::run(unsigned int movement_id){
         bottleArm.close(true);
         bottleArm.up(false);
 
+        lasers.front.inactivate();
+        lasers.pair.inactivate();
+
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
+        lasers.front.activate(SOUTH, SOUTH_WALL_Y);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
         break;
 
     case GOTO_FIRST_DELIVERY:
-        
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
         
         containerArm.close(true);
@@ -194,8 +161,6 @@ void R1::run(unsigned int movement_id){
         break;
     }
 
-    //デバッグ用
-    wait_seconds(3);
 
 
     auto_moving = false;

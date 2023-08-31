@@ -27,7 +27,16 @@
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/STM32Cube_FW/**",
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/",
                 "~/.platformio/packages/framework-mbed/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/TARGET_NUCLEO_F446RE/**",
-                "~/.platformio/packages/framework-mbed/platform/cxxsupport"
+                "~/.platformio/packages/framework-mbed/platform/cxxsupport",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/device/rtos/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/tests/UNITTESTS/doubles",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/include/rtos",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/events/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/CMSIS_5/CMSIS/TARGET_CORTEX_M/Include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed/platform/include/platform",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/drivers/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/hal/include/hal"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
