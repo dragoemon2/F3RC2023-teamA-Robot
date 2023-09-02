@@ -163,19 +163,19 @@ void R1::run(unsigned int movement_id){
         //bottleArm.down(false);
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
         //bottleArm.open(true);
-        driveBase.goTo(WEST_WALL_X+2200, SOUTH_WALL_Y + ROBOTSIZE + 150, -PI/2);
+        driveBase.goTo(WEST_WALL_X+2200, SOUTH_WALL_Y + 1200, -PI/2);
 
         
         break;
 
     case GOTO_POSTZONE1:
         if(mm.mode != COMPLETELY_AUTO_MODE){
-            driveBase.localization.setPosition(WEST_WALL_X+2126+250, driveBase.localization.posY, -PI/2);
+            driveBase.localization.setPosition(WEST_WALL_X+ROBOTSIZE+2126+250, driveBase.localization.posY, -PI/2);
         }else{
-            driveBase.goTo(WEST_WALL_X+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 150, -PI/2);
+            driveBase.goTo(WEST_WALL_X+ROBOTSIZE+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 150, -PI/2);
         }
         
-        driveBase.goTo(WEST_WALL_X+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
+        driveBase.goTo(WEST_WALL_X+ROBOTSIZE+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         break;
         
     
