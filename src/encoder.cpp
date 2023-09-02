@@ -5,7 +5,7 @@
 
 Encoder::Encoder(PinName pinA, PinName pinB): A(pinA), B(pinB) {
     A.rise([this]() {increment(1);}); //インクリメント
-    //A.fall([this]() {increment(-1);});
+    A.fall([this]() {increment(-1);});
 }
 
 void Encoder::increment(int sgn){

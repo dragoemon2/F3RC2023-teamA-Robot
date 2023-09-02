@@ -5,11 +5,11 @@
 #define READ_DENOISE_N (15)
 
 
-TOFLaser::TOFLaser(unsigned int id, PinName xshut_pin, PinName sda_pin, PinName scl_pin): xshut(xshut_pin), i2c(sda_pin, scl_pin), sensor(i2c, timer)
+TOFLaser::TOFLaser(int address, PinName xshut_pin, PinName sda_pin, PinName scl_pin): xshut(xshut_pin), i2c(sda_pin, scl_pin), sensor(i2c, timer), address(address)
 {
     xshut.output();
     xshut.write(0);
-    address = DEFAULT_ADDRESS + 2 + 2*id;
+    //address = DEFAULT_ADDRESS + 2 + 2*id;
     //init();
     last_value = -1; //デバッグ用
 }
@@ -26,6 +26,7 @@ void TOFLaser::init(){
 
     //測定時間の上限
     sensor.setMeasurementTimingBudget(33000);
+    
 
     //アドレスの書き込み
     sensor.setAddress(address);
@@ -57,14 +58,16 @@ int TOFLaser::read(){
 
         #if 1
         if(value > 8000){
+            
             value = -1;
         }
         #endif
-        if(value < 10){
+        if(value < 30){
             value = -1;
         }
     }else{
         value = -2;
+        //restart();
     }
 
     if(sensor.timeoutOccurred()){

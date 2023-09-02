@@ -18,6 +18,9 @@ class R1: public Robot
         void wait_seconds(float seconds);
         void next();
         void game();
+
+
+        void debug();
         //void init_lasers();
 
 

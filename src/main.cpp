@@ -14,7 +14,8 @@ void mbed_error_hook(const mbed_error_ctx *error_context)
 
 int main(){
     //開始
-    printf("hoge\n");
+    printf("start\n");
     robot.game();
+    //robot.debug();
     return 0;
 }

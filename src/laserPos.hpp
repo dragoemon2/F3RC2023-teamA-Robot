@@ -23,6 +23,9 @@ class LaserPos
         LaserPos(int posX, int posY, float direction, _Laser& laser);
         int read();
         int readDenoise();
+        int getLastValue();
+
+        int last_value; //デバッグのため保持しておく
 };
 
 

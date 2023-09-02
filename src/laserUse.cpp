@@ -23,7 +23,7 @@ void _LaserUse::inactivate(){
 
 bool _LaserUse::check(float X, float Y, float D){
     //レーザーの使用条件などあればここに書く．
-    return true;
+    return active;
 }
 
 
@@ -63,7 +63,6 @@ void LaserUse::scan(float* X, float* Y, float* D, bool denoise, bool always){
         length = float(laser.read());
     }
 
-    printf("%d\n", int(length));
 
     if(length < 0){
         return;
@@ -105,8 +104,6 @@ void LaserPairUse::scan(float* X, float* Y, float* D, bool denoise, bool always)
         length1 = float(laser1.read());
         length2 = float(laser2.read());
     }
-
-    printf("%d %d\n", int(length1), int(length2));
 
     if(length1 < 0 || length2 < 0){
         return;

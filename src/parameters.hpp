@@ -11,7 +11,7 @@
 #define SQRT2 (1.414213562373095)
 
 //固定値
-#define ENC_RES_MAX (500) //ロータリエンコーダーの分解能
+#define ENC_RES_MAX (500*2) //ロータリエンコーダーの分解能
 #define TRED_RADIUS (125.4f) //中心からオムニホイールの距離[mm]
 #define WHEEL_DIAMETER (100.0f)	//オムニホイールの直径	[mm]
 #define WHEEL_RADIUS	(WHEEL_DIAMETER/2.0f) //オムニホイールの半径	[mm]

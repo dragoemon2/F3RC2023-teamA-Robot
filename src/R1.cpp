@@ -46,10 +46,10 @@ void R1::run(unsigned int movement_id){
     //ペットボトル置き場手前まで移動する
     case GOTO_FIRST_PRODUCT_STORAGE:
         driveBase.localization.setPosition(WEST_WALL_X + ROBOTSIZE, NORTH_WALL_Y - ROBOTSIZE, -PI/2); //壁当てでスタート
-        lasers.pair.activate(WEST, WEST_WALL_X);
-        lasers.front.activate(SOUTH, SOUTH_WALL_Y);
+        //lasers.pair.activate(WEST, -WEST_WALL_X);
+        //lasers.front.activate(SOUTH, -SOUTH_WALL_Y);
         //bottleArm.down(false);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2); //ペットボトル置き場手前
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2); //ペットボトル置き場手前
 
         break;
 
@@ -84,17 +84,17 @@ void R1::run(unsigned int movement_id){
     case GOTO_SECOND_PRODUCT_STORAGE:
         driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
 
         //受け渡し
         //R1から受け渡し検知信号を受信
         wait_seconds(1); 
         //containerArm.open(false);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
         //bottleArm.down(false);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
         break;
 
     case GOTO_SECOND_CONTAINER_STORAGE:
@@ -123,17 +123,17 @@ void R1::run(unsigned int movement_id){
     case GOTO_THIRD_PRODUCT_STORAGE:
         driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
 
         //受け渡し
         //R1から受け渡し検知信号を受信
         wait_seconds(1); 
         //containerArm.open(false);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
         //bottleArm.down(false);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 100, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         break;
 
     case GOTO_THIRD_CONTAINER_STORAGE:
@@ -235,6 +235,7 @@ void R1::loop(){
         mm.mode = COMPLETELY_AUTO_MODE;
     }
 
+    
     printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
 }
 
