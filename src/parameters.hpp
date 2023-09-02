@@ -20,6 +20,9 @@
 
 //モーターのPIDゲイン
 
+
+//モーターのPIDゲイン
+
 #if(USING_R1)
 
 #define MOTOR_0_KP_1 (1.3f)
@@ -30,21 +33,21 @@
 #define MOTOR_1_KI_1 (0.06f)
 #define MOTOR_1_KD_1 (0.0f)
 
-#define MOTOR_2_KP_1 (1.0f)
-#define MOTOR_2_KI_1 (0.07f)
+#define MOTOR_2_KP_1 (1.3f)
+#define MOTOR_2_KI_1 (0.06f)
 #define MOTOR_2_KD_1 (0.0f)
 
 #define MOTOR_3_KP_1 (1.3f)
 #define MOTOR_3_KI_1 (0.06f)
 #define MOTOR_3_KD_1 (0.0f)
 
-#define MOTOR_0_KP_2 (0.00004f)
+#define MOTOR_0_KP_2 (0.00014f)
 #define MOTOR_0_KI_2 (0.000000f)
 #define MOTOR_0_KD_2 (0.00000f)
 
-#define MOTOR_1_KP_2 (0.00007f)
-#define MOTOR_1_KI_2 (0.000000f)
-#define MOTOR_1_KD_2 (0.0f)
+#define MOTOR_1_KP_2 (0.00016f)
+#define MOTOR_1_KI_2 (0.00000f)
+#define MOTOR_1_KD_2 (0.000000f)
 
 #define MOTOR_2_KP_2 (0.00016f)
 #define MOTOR_2_KI_2 (0.00000f)
@@ -55,7 +58,7 @@
 #define MOTOR_3_KD_2 (0.0f)
 
 #define DRIVEBASE_KP (1.3f)
-#define DRIVEBASE_KI (0.06f)
+#define DRIVEBASE_KI (0.08f)
 #define DRIVEBASE_KD (0.0f)
 
 #define DRIVEBASE_ROTATE_KP (DRIVEBASE_KP)
@@ -72,21 +75,21 @@
 #define MOTOR_1_KI_1 (0.06f)
 #define MOTOR_1_KD_1 (0.0f)
 
-#define MOTOR_2_KP_1 (1.0f)
-#define MOTOR_2_KI_1 (0.07f)
+#define MOTOR_2_KP_1 (1.3f)
+#define MOTOR_2_KI_1 (0.06f)
 #define MOTOR_2_KD_1 (0.0f)
 
 #define MOTOR_3_KP_1 (1.3f)
 #define MOTOR_3_KI_1 (0.06f)
 #define MOTOR_3_KD_1 (0.0f)
 
-#define MOTOR_0_KP_2 (0.00004f)
+#define MOTOR_0_KP_2 (0.00016f)
 #define MOTOR_0_KI_2 (0.000000f)
 #define MOTOR_0_KD_2 (0.00000f)
 
-#define MOTOR_1_KP_2 (0.00007f)
-#define MOTOR_1_KI_2 (0.000000f)
-#define MOTOR_1_KD_2 (0.0f)
+#define MOTOR_1_KP_2 (0.00016f)
+#define MOTOR_1_KI_2 (0.00000f)
+#define MOTOR_1_KD_2 (0.000000f)
 
 #define MOTOR_2_KP_2 (0.00016f)
 #define MOTOR_2_KI_2 (0.00000f)
@@ -97,7 +100,7 @@
 #define MOTOR_3_KD_2 (0.0f)
 
 #define DRIVEBASE_KP (1.3f)
-#define DRIVEBASE_KI (0.06f)
+#define DRIVEBASE_KI (0.08f)
 #define DRIVEBASE_KD (0.0f)
 
 #define DRIVEBASE_ROTATE_KP (DRIVEBASE_KP)
@@ -106,18 +109,9 @@
 
 #endif
 
-//フィールドパラメーター
-#define SOUTH_WALL_Y (38)
-#define NORTH_WALL_Y (2400-38)
-#define WEST_WALL_X (38)
-#define EAST_WALL_X (4500-38)
-
-#define ROBOTSIZE (165)
-
-
 //移動パラメータ
 #define MAX_ACCELERATION (20000) //最大加速度 [mm/s^2]
-#define MAX_SPEED (2000) //最高速度  [mm/s]
+#define MAX_SPEED (500) //最高速度  [mm/s]
 #define MAX_ROTATE_ACCELERATION (MAX_ACCELERATION/TRED_RADIUS) //最大回転速度  [rad/s^2]
 #define MAX_ROTATE_SPEED (MAX_SPEED/TRED_RADIUS) //最大回転加速度  [rad/s]
 
@@ -126,8 +120,9 @@
 #define SPEED_ADJUSTMENT_FREQUENCY (20) //速度調整の頻度[Hz]
 
 //目的地到着を判定する閾値
-#define MOVEMENT_THRESHOLD (3) //目的地に到着したとみなす半径[mm]
-#define MOVEMENT_THRESHOLD_RAD (0.03f) //目的地に到着したとみなす角度の誤差[rad]
+#define MOVEMENT_THRESHOLD (5) //目的地に到着したとみなす半径[mm]
+#define MOVEMENT_THRESHOLD_RAD (0.04f) //目的地に到着したとみなす角度の誤差[rad]
+
 
 #define MOVEMENT_SWITCH_THRESHOLD (MAX_SPEED/DRIVEBASE_KP)
 
@@ -142,3 +137,12 @@
 #define HAND_SPEED_LEFT (1500.0f)
 #define HAND_SPEED_RIGHT (100.0f)
 #define HAND_ROTATE_SPEED (0.5f)
+
+
+//フィールドパラメーター
+#define SOUTH_WALL_Y (38)
+#define NORTH_WALL_Y (2400-38)
+#define WEST_WALL_X (38)
+#define EAST_WALL_X (4500-38)
+
+#define ROBOTSIZE (165)

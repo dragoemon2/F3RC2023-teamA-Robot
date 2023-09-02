@@ -25,6 +25,8 @@ using namespace std;
 #define AUTO_MODE (1)
 #define COMPLETELY_AUTO_MODE (2)
 
+#define USING_CONTROLLER (0)
+
 class MovementManager{
     private:
         //正規化したジョイスティックの値
@@ -51,7 +53,9 @@ class MovementManager{
 
 
     public:
+        #if USING_CONTROLLER
         SerialCommunication serial;
+        #endif
 
         //ロボットがするべき動きを決めたメンバ変数を作って．以下は一例
 

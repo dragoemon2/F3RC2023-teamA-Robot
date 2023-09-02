@@ -10,7 +10,7 @@ class _LaserUse{
 
         bool active;
 
-        void activate(int wallDirection, int wallR);
+        void activate(int newWallDirection, int newWallR);
         void inactivate();
         bool check(float X, float Y, float D);
         //virtual void scan(float* X, float* Y, float* D, bool denoise=false);

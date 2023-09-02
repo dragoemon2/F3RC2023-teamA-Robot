@@ -4,6 +4,7 @@
 #include <chrono>
 
 
+
 #define MOTION_TIME_OUT (500)
 #define CONNECTION_TIME_OUT (5000)
 
@@ -47,10 +48,17 @@ inline float joystick_filter(float value, float dead=0.3f){
 }
 
 //初期化
-MovementManager::MovementManager(): serial(115200, PA_9, PA_10)
+MovementManager::MovementManager()
+#if USING_CONTROLLER
+    :serial(115200, PA_9, PA_10)
+#endif
 {
     flag = false; //flagを下げておく
+    #if USING_CONTROLLER
     serial.attach([this](char* str) {update(str);});
+    #else
+    mode = COMPLETELY_AUTO_MODE;
+    #endif
     timer.start();
 }
 
@@ -154,7 +162,9 @@ void MovementManager::setTargetSpeed(){
 
 
 void MovementManager::sendMessageToController(int message){
+    #if USING_CONTROLLER
     serial.writeline(to_string(message));
+    #endif
 }
 
 bool MovementManager::MotionTimeOutOccured(){

@@ -6,10 +6,12 @@ LaserPos::LaserPos(int posX, int posY, float direction, _Laser& laser): posX(pos
 }
 
 int LaserPos::read(){
+    //return -1;
     return laser.read();
 }
 
 int LaserPos::readDenoise(){
+    //return -1;
     return laser.readDenoise();
 }
 

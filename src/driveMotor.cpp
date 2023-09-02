@@ -8,8 +8,8 @@
 //using namespace std;
 
 //初期化
-DriveMotor::DriveMotor(PinName encoder_pin_a, PinName encoder_pin_b, PinName pwm_pin, PinName dir_pin, float kp_1, float ki_1, float kd_1, float kp_2, float ki_2, float kd_2): encoder(encoder_pin_a, encoder_pin_b), pwmOut(pwm_pin), dirOut(dir_pin), pidController(SPEED_ADJUSTMENT_FREQUENCY,kp_1,ki_1,kd_1), pidSpeedController(SPEED_ADJUSTMENT_FREQUENCY,kp_2,ki_2,kd_2) {
-    pwmOut.period(0.00006);
+DriveMotor::DriveMotor(PinName encoder_pin_a, PinName encoder_pin_b, PinName pwm_pin, PinName dir_pin, float kp_1, float ki_1, float kd_1, float kp_2, float ki_2, float kd_2, bool sign): encoder(encoder_pin_a, encoder_pin_b), pwmOut(pwm_pin), dirOut(dir_pin), pidController(SPEED_ADJUSTMENT_FREQUENCY,kp_1,ki_1,kd_1), pidSpeedController(SPEED_ADJUSTMENT_FREQUENCY,kp_2,ki_2,kd_2), sign(sign) {
+    pwmOut.period(0.001);
     pidController.reset();
     
     loop = [this] {return;};
@@ -19,15 +19,16 @@ DriveMotor::DriveMotor(PinName encoder_pin_a, PinName encoder_pin_b, PinName pwm
 void DriveMotor::setPWM(float signed_pwm){
     if(signed_pwm > 0){
         pwmOut.write(signed_pwm);
-        dirOut.write(1);
+        dirOut.write(!sign);
     }else{
         pwmOut.write(-signed_pwm);
-        dirOut.write(0);
+        dirOut.write(sign);
     }
 }
 
 
 void DriveMotor::rotate(float targetSpeed){
+    #if 1
     float speed = (encoder.getAmount() - lastEncoderAmount) * SPEED_ADJUSTMENT_FREQUENCY;
 
     _s1 = speed;
@@ -63,6 +64,41 @@ void DriveMotor::rotate(float targetSpeed){
     setPWM(pwm);
 
     lastEncoderAmount = encoder.getAmount();
+    #else
+    float speed = pwm/0.00035f;
+
+    _s1 = (encoder.getAmount() - lastEncoderAmount) * SPEED_ADJUSTMENT_FREQUENCY;
+
+
+    //速度を制限する
+
+    if(targetSpeed > MAX_SPEED){
+        targetSpeed = MAX_SPEED;
+        pidController.reset();
+    }else if(targetSpeed < -MAX_SPEED){
+        targetSpeed = -MAX_SPEED;
+        pidController.reset();
+    }
+
+    //加速度を制限する
+
+    float targetAcc = (targetSpeed - speed) * SPEED_ADJUSTMENT_FREQUENCY;
+
+    if(targetAcc > MAX_ACCELERATION){
+        targetSpeed = speed + MAX_ACCELERATION / SPEED_ADJUSTMENT_FREQUENCY;
+    }else if(targetAcc < -MAX_ACCELERATION){
+        targetSpeed = speed - MAX_ACCELERATION / SPEED_ADJUSTMENT_FREQUENCY;
+    }
+
+    _s2 = targetSpeed;
+
+    pwm = targetSpeed*0.00035f;
+
+    setPWM(pwm);
+
+    lastEncoderAmount = encoder.getAmount();
+
+    #endif
 }
 
 

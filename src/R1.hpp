@@ -7,8 +7,8 @@
 class R1: public Robot
 {
     public:
-        BottleArm bottleArm;
-        ContainerArm containerArm;
+        //BottleArm bottleArm;
+        //ContainerArm containerArm;
         R1Lasers lasers;
         R1();
         void moveHand();

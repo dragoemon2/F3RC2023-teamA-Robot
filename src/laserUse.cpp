@@ -11,9 +11,9 @@ _LaserUse::_LaserUse(int wallDirection, int wallR, int laserDirection): wallDire
 }
 
 
-void _LaserUse::activate(int wallDirection, int wallR){
-    wallDirection = wallDirection;
-    wallR = wallR;
+void _LaserUse::activate(int newWallDirection, int newWallR){
+    wallDirection = newWallDirection;
+    wallR = newWallR;
     active = true;
 }
 
@@ -55,11 +55,15 @@ void LaserUse::scan(float* X, float* Y, float* D, bool denoise, bool always){
     float theta2 = theta1 - laserDirection*PI/2;
 
     float length;
+
+
     if(denoise){
         length = float(laser.readDenoise());
     }else{
         length = float(laser.read());
     }
+
+    printf("%d\n", int(length));
 
     if(length < 0){
         return;
@@ -101,6 +105,8 @@ void LaserPairUse::scan(float* X, float* Y, float* D, bool denoise, bool always)
         length1 = float(laser1.read());
         length2 = float(laser2.read());
     }
+
+    printf("%d %d\n", int(length1), int(length2));
 
     if(length1 < 0 || length2 < 0){
         return;
