@@ -120,8 +120,8 @@
 #define SPEED_ADJUSTMENT_FREQUENCY (20) //速度調整の頻度[Hz]
 
 //目的地到着を判定する閾値
-#define MOVEMENT_THRESHOLD (5) //目的地に到着したとみなす半径[mm]
-#define MOVEMENT_THRESHOLD_RAD (0.04f) //目的地に到着したとみなす角度の誤差[rad]
+#define MOVEMENT_THRESHOLD (10) //目的地に到着したとみなす半径[mm]
+#define MOVEMENT_THRESHOLD_RAD (0.1f) //目的地に到着したとみなす角度の誤差[rad]
 
 
 #define MOVEMENT_SWITCH_THRESHOLD (MAX_SPEED/DRIVEBASE_KP)

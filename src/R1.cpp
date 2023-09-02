@@ -78,23 +78,28 @@ void R1::run(unsigned int movement_id){
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
         driveBase.rotateTo(0);
         //bottleArm.open(true);
+
         driveBase.goTo(WEST_WALL_X + 1900, SOUTH_WALL_Y + 1200, 0);
         break;
     
     case GOTO_SECOND_PRODUCT_STORAGE:
-        driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+        if(mm.mode != COMPLETELY_AUTO_MODE){
+            driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+        }
+        
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X + 2000, SOUTH_WALL_Y + 1200, -PI/2);
 
         //受け渡し
         //R1から受け渡し検知信号を受信
         wait_seconds(1); 
         //containerArm.open(false);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
-        //bottleArm.down(false);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.rotateTo(-PI/2);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2);
+
         break;
 
     case GOTO_SECOND_CONTAINER_STORAGE:
@@ -121,19 +126,23 @@ void R1::run(unsigned int movement_id){
         break;
 
     case GOTO_THIRD_PRODUCT_STORAGE:
-        driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+        if(mm.mode != COMPLETELY_AUTO_MODE){
+            driveBase.localization.setPosition(driveBase.localization.posX, SOUTH_WALL_Y + 1200, 0);
+        }
+        
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(WEST_WALL_X + 2000, SOUTH_WALL_Y + 1200, -PI/2);
 
         //受け渡し
         //R1から受け渡し検知信号を受信
         wait_seconds(1); 
         //containerArm.open(false);
 
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 550, -PI/2);
-        //bottleArm.down(false);
-        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
+        driveBase.rotateTo(-PI/2);
+
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
+        driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2);
+
         break;
 
     case GOTO_THIRD_CONTAINER_STORAGE:
@@ -160,7 +169,12 @@ void R1::run(unsigned int movement_id){
         break;
 
     case GOTO_POSTZONE1:
-        driveBase.localization.setPosition(WEST_WALL_X+2126+250, driveBase.localization.posY, -PI/2);
+        if(mm.mode != COMPLETELY_AUTO_MODE){
+            driveBase.localization.setPosition(WEST_WALL_X+2126+250, driveBase.localization.posY, -PI/2);
+        }else{
+            driveBase.goTo(WEST_WALL_X+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 150, -PI/2);
+        }
+        
         driveBase.goTo(WEST_WALL_X+2126+250, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         break;
         
