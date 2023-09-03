@@ -83,7 +83,7 @@
 #define MOTOR_3_KI_1 (0.06f)
 #define MOTOR_3_KD_1 (0.0f)
 
-#define MOTOR_0_KP_2 (0.00016f)
+#define MOTOR_0_KP_2 (0.00014f)
 #define MOTOR_0_KI_2 (0.000000f)
 #define MOTOR_0_KD_2 (0.00000f)
 
@@ -106,7 +106,6 @@
 #define DRIVEBASE_ROTATE_KP (DRIVEBASE_KP)
 #define DRIVEBASE_ROTATE_KI (DRIVEBASE_KI)
 #define DRIVEBASE_ROTATE_KD (DRIVEBASE_KD)
-
 #endif
 
 //移動パラメータ
