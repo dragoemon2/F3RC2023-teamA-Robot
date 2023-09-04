@@ -1,6 +1,8 @@
 #include "R1.hpp"
 #include "parameters.hpp"
 
+#include "simulation.hpp"
+
 #if USING_R1
 
 using namespace std::chrono;
@@ -28,12 +30,22 @@ R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([thi
 R1::R1(): Robot(), lasers(driveBase)
 {
     driveBase.attachLoop([this](){loop();});
+
+    #if SIMULATION
+    new MotorSimulation(&motor0);
+    new MotorSimulation(&motor1);
+    new MotorSimulation(&motor2);
+    new MotorSimulation(&motor3);
+    #endif
 }
 #endif
 
 void R1::game(){
-    mm.mode = COMPLETELY_AUTO_MODE;
-    wait_seconds(10);
+    #if !USING_CONTROLLER
+    //コントローラー接続タイムアウトが発生するようにする．
+    mm.connected_before = true;
+    #endif
+
     next();
 }
 

@@ -1,5 +1,6 @@
 #include "parameters.hpp"
 
+#include "simulation.hpp"
 
 #if !USING_R1
 
@@ -23,6 +24,13 @@ R2::R2():
     lasers(driveBase)
 {
     driveBase.attachLoop([this](){loop();});
+
+    #if SIMULATION
+    MotorSimulation simulation0(&motor0);
+    MotorSimulation simulation1(&motor1);
+    MotorSimulation simulation2(&motor2);
+    MotorSimulation simulation3(&motor3);
+    #endif
 }
 
 

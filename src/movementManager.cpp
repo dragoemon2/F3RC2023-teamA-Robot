@@ -1,6 +1,10 @@
+#include "parameters.hpp"
+
+#if USING_R1
+
 #include "movementManager.hpp"
 #include <string>
-#include "parameters.hpp"
+
 #include <chrono>
 
 
@@ -174,3 +178,5 @@ bool MovementManager::MotionTimeOutOccured(){
 bool MovementManager::ConnectionTimeOutOccured(){
     return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
 }
+
+#endif

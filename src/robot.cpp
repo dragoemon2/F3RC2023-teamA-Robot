@@ -2,6 +2,7 @@
 #include "laserPos.hpp"
 #include "pins.hpp"
 #include "parameters.hpp"
+#include "simulation.hpp"
 #include <chrono>
 
 using namespace std::chrono;
@@ -32,6 +33,8 @@ Robot::Robot()
     driveBase.attachLoop([this]{loop();});
     init_arms();
     init_status();
+
+    
 }
 
 //試合

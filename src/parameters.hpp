@@ -2,9 +2,7 @@
 
 #pragma once
 
-
-#define USING_R1 (0)
-#define SIMULATION (0)
+#include "settings.hpp"
 
 //定数
 #define PI (3.141592653589793)
@@ -18,7 +16,6 @@
 #define MMPP 		((WHEEL_DIAMETER*PI)/(ENC_RES_MAX))	//エンコーダ1パルスあたりに進む距離[mm]
 #define RADPP 	(MMPP/TRED_RADIUS)	//エンコーダ1パルスあたりの回転角[rad]
 
-//モーターのPIDゲイン
 
 
 //モーターのPIDゲイン

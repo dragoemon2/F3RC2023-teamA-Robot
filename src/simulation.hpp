@@ -14,7 +14,7 @@ class MotorSimulation{
         float gain;
         int frequency;
         int _s1;
-        MotorSimulation(DriveMotor* motor, float gain, int frequency=ENCODER_LOCALIZATION_FREQUENCY);
+        MotorSimulation(DriveMotor* motor, float gain=5000, int frequency=ENCODER_LOCALIZATION_FREQUENCY);
     private:
         void interrupt();
         float value = 0;

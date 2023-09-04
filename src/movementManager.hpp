@@ -1,6 +1,9 @@
 #pragma once
 
 #include "serialCommunication.hpp"
+#include "parameters.hpp"
+
+#if USING_R1
 #include <mbed.h>
 
 enum MESSAGE_TO_CONTROLLER{
@@ -25,8 +28,6 @@ using namespace std;
 #define AUTO_MODE (1)
 #define COMPLETELY_AUTO_MODE (2)
 
-#define USING_CONTROLLER (0)
-
 class MovementManager{
     private:
         //正規化したジョイスティックの値
@@ -47,7 +48,6 @@ class MovementManager{
         bool last_auto_mode_button = false;
 
         int last_connected_time;
-        bool connected_before = false;
 
         Timer timer;
 
@@ -56,6 +56,8 @@ class MovementManager{
         #if USING_CONTROLLER
         SerialCommunication serial;
         #endif
+
+        bool connected_before = false;
 
         //ロボットがするべき動きを決めたメンバ変数を作って．以下は一例
 
@@ -83,3 +85,5 @@ class MovementManager{
 
         MovementManager();
 };
+
+#endif

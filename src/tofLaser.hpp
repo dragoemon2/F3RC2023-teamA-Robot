@@ -8,8 +8,8 @@ class TOFLaser: public _Laser
 {
     public:
         DigitalInOut xshut;
-        VL53L0X sensor;
         I2C i2c;
+        VL53L0X sensor;
         Timer timer;
 
         //異なるTOFに異なるアドレスを書き込むために，非負整数idを用いて区別する．0から順に指定していけばOK

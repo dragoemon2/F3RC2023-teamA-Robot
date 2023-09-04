@@ -35,10 +35,10 @@ inline void pin_check(){
 
     #if 1
     printf("RE_B\n");
-    InterruptIn reb1(RE_1_B);
-    InterruptIn reb2(RE_2_B);
-    InterruptIn reb3(RE_3_B);
-    InterruptIn reb4(RE_4_B);
+    DigitalIn reb1(RE_1_B);
+    DigitalIn reb2(RE_2_B);
+    DigitalIn reb3(RE_3_B);
+    DigitalIn reb4(RE_4_B);
     #endif
 
     #if 1
