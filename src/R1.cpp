@@ -1,6 +1,8 @@
 #include "R1.hpp"
 #include "parameters.hpp"
 
+#if USING_R1
+
 using namespace std::chrono;
 
 //自動で動かす箇所．この間に手動調整を入れる
@@ -261,3 +263,5 @@ void R1::wait_seconds(float seconds){
         if(mm.mode == HAND_MODE && auto_moving){break;};
     }
 }
+
+#endif

@@ -1,4 +1,6 @@
 #pragma once
+#include "parameters.hpp"
+#if !USING_R1
 
 
 #include "driveBase.hpp"
@@ -28,3 +30,4 @@ class R2Lasers
 
         R2Lasers(DriveBase& driveBase);
 };
+#endif

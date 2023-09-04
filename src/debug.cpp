@@ -1,6 +1,8 @@
 #include "R1.hpp"
 #include "parameters.hpp"
 #include "driveBase.hpp"
+#include "pins.hpp"
+
 
 void dir_check(DriveBase& driveBase){
     driveBase.attachLoop([&driveBase]{printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));});
@@ -93,6 +95,8 @@ void motor_test(DriveMotor& test_motor){
     test_motor.setPWM(0);
 }
 
+#if USING_R1
+
 void laser_test(R1* r1){
     r1->driveBase.localization.setPosition(0,0,0);
     r1->lasers.front.activate(EAST, 0);
@@ -100,6 +104,7 @@ void laser_test(R1* r1){
     //printf("%d\n", r1->lasers.laser2.last_value);
     r1->wait_seconds(3600);
 }
+
 
 
 void R1::debug(){
@@ -115,3 +120,6 @@ void R1::debug(){
     //drive(driveBase);
 }
 
+#else
+
+#endif

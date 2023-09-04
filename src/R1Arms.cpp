@@ -1,5 +1,10 @@
+#include "parameters.hpp"
+
+#if USING_R1
+
 #include "R1Arms.hpp"
 #include "pins.hpp"
+
 
 BottleArm::BottleArm(std::function<void(int)> f): pwmOut(PWM_5), dirOut(DIR_5), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1), limit_switch2(LS_2)
 {
@@ -47,12 +52,14 @@ void BottleArm::down(bool idle){
 }
 
 void BottleArm::spinDown(bool idle){
+    spinner.moveTo(0);
     if(idle){
         wait(1000);
     }
 }
 
 void BottleArm::spinUp(bool idle){
+    spinner.moveTo(90);
     if(idle){
         wait(1000);
     }
@@ -79,3 +86,5 @@ void ContainerArm::close(bool idle){
         wait(1000);
     }
 }
+
+#endif

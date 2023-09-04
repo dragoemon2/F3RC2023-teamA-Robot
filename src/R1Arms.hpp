@@ -1,4 +1,7 @@
 #pragma once
+#include "parameters.hpp"
+
+#if USING_R1
 #include <functional>
 #include "servoMotor.hpp"
 #include "airCylinder.hpp"
@@ -36,3 +39,4 @@ class ContainerArm
     private:
         std::function<void(int)> wait;
 };
+#endif

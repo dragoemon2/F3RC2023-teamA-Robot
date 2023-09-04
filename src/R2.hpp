@@ -1,4 +1,7 @@
 #pragma once
+#include "parameters.hpp"
+
+#if !USING_R1
 #include "robot.hpp"
 
 class R2: public Robot
@@ -8,3 +11,5 @@ class R2: public Robot
         void run(unsigned int movement_id);
         R2();
 };
+
+#endif

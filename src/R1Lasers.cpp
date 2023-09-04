@@ -1,13 +1,17 @@
+#include "parameters.hpp"
+
+#if USING_R1
+
 #include "R1Lasers.hpp"
 #include "pins.hpp"
 
 R1Lasers::R1Lasers(DriveBase& driveBase):
     driveBase(driveBase),
 
-    laserCore1(66, XSHUT_1),
-    laserCore2(65, XSHUT_2),
+    laserCore1(66, XSHUT_1, SDA, SCL),
+    laserCore2(65, XSHUT_2, SDA, SCL),
     //laserCore3(3, A2),
-    laserCore4(64, XSHUT_4),
+    laserCore4(64, XSHUT_4, SDA, SCL),
 
     laser1(130,-165,SOUTH,laserCore1),
     laser2(-130,-165,SOUTH,laserCore2),
@@ -35,3 +39,5 @@ void R1Lasers::scan(float* X, float* Y, float* D){
     front.scan(X, Y, D);
     //printf("%d %d %d\n", int(*X),int(*Y),int(180/PI* (*D)));
 }
+
+#endif

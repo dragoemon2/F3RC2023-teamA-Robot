@@ -1,4 +1,7 @@
 #pragma once
+#include "parameters.hpp"
+
+#if USING_R1
 #include "robot.hpp"
 #include "movementManager.hpp"
 #include "R1Arms.hpp"
@@ -27,3 +30,5 @@ class R1: public Robot
         bool auto_moving;
         MovementManager mm;
 };
+
+#endif

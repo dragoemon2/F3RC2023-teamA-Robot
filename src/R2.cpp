@@ -1,5 +1,7 @@
-#include "R2.hpp"
+#include "parameters.hpp"
 
+#if !USING_R1
+#include "R2.hpp"
 enum R2_MOVEMENT{
     GOTO_FIRST_RECEIVE,
     WAIT_FOR_FIRST_RECEIVE,
@@ -53,3 +55,5 @@ void R2::run(unsigned int movement_id){
         break;
     }
 }
+
+#endif

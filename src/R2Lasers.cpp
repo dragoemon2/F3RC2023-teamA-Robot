@@ -1,3 +1,6 @@
+#include "parameters.hpp"
+#if !USING_R1
+
 #include "R2Lasers.hpp"
 
 R2Lasers::R2Lasers(DriveBase& driveBase):
@@ -25,3 +28,5 @@ void R2Lasers::scan(float* X, float* Y, float* D){
     back.scan(X, Y, D);
     //printf("%d %d %d\n", int(*X),int(*Y),int(180/PI* (*D)));
 }
+
+#endif

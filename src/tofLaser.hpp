@@ -13,7 +13,7 @@ class TOFLaser: public _Laser
         Timer timer;
 
         //異なるTOFに異なるアドレスを書き込むために，非負整数idを用いて区別する．0から順に指定していけばOK
-        TOFLaser(int address, PinName xshut_pin, PinName sda_pin=SDA, PinName scl_pin=SCL);
+        TOFLaser(int address, PinName xshut_pin, PinName sda_pin, PinName scl_pin);
         void init();
 
         //値の読み取り．読み取れなかったときは負の値を返す．

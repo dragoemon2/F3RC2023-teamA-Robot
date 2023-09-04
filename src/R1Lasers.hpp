@@ -1,4 +1,7 @@
 #pragma once
+#include "parameters.hpp"
+
+#if USING_R1
 #include "tofLaser.hpp"
 #include "laserPos.hpp"
 #include "laserUse.hpp"
@@ -47,3 +50,5 @@ class R1Lasers
 
         R1Lasers(DriveBase& driveBase);
 };
+
+#endif

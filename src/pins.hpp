@@ -4,7 +4,7 @@
 
 
 //-----足回り------
-#if USING_R1
+
 
 //ロータリエンコーダー
 #define RE_1_A (PB_4)
@@ -26,10 +26,12 @@
 #define PWM_4 (PB_13)
 #define DIR_4 (PB_2)
 
+#if USING_R1
 
 //-----アーム-----
 //DCモーター
-#define PWM_5 (PB_8)
+// #define PWM_5 (PB_8)
+#define PWM_5 (PC_7)
 #define DIR_5 (PC_4)
 
 //サーボ
@@ -41,8 +43,12 @@
 #define LS_2 (PD_2) 
 
 //-----レーザー-----
-#define SDA (PC_7)
-#define SCL (PB_6)
+
+// #define SDA (PC_7)
+// #define SCL (PB_6)
+
+#define SDA (PB_9)
+#define SCL (PB_8)
 
 #define XSHUT_1 (PC_5)
 #define XSHUT_2 (PA_12)
