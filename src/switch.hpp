@@ -11,7 +11,7 @@ class Switch
         bool get(); //状態(押されてるかどうか)
         void riseAttachOnce(std::function<void(void)> f);
         void fallAttachOnce(std::function<void(void)> f);
-        Switch(PinName pin, unsigned int interval=10, unsigned int detectionThreshold=3, bool high_on_pushed=true);
+        Switch(PinName pin,bool high_on_pushed=true, unsigned int interval=10, unsigned int detectionThreshold=3);
     private:
         unsigned int interval; //サンプリング周期
         unsigned int detectionThreshold; //検出回数(立ち上がり/立ち下がりを含まない)

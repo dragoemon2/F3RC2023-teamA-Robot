@@ -1,7 +1,7 @@
 #include "switch.hpp"
 #include <chrono>
 
-Switch::Switch(PinName pin, unsigned int interval, unsigned int detectionThreshold, bool high_on_pushed): interruptin(pin), high_on_pushed(high_on_pushed), interval(interval), detectionThreshold(detectionThreshold)
+Switch::Switch(PinName pin, bool high_on_pushed, unsigned int interval, unsigned int detectionThreshold): interruptin(pin), high_on_pushed(high_on_pushed), interval(interval), detectionThreshold(detectionThreshold)
 {
     
     monitoring = false;
