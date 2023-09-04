@@ -11,6 +11,7 @@ class R2: public Robot
 {
     public:
         R2esp esp32;
+        R1Detector pass_detector;
         void game();
         void run(unsigned int movement_id);
         R2();

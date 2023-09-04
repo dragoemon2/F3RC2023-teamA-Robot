@@ -16,12 +16,12 @@ class Pusher
         PwmOut pwmOut;
         DigitalOut dirOut;
         R2esp& esp32;
-        Pusher(std::function<void(int)> f, R2esp& esp32);
+        Pusher(std::function<void(float)>, R2esp& esp32);
         void push(bool idle=true);
         void pull(bool idle=true);
 
     private:
-        std::function<void(int)> wait;
+        std::function<void(float)> wait;
 
 };
 
@@ -30,12 +30,12 @@ class R1Detector
 {
     public:
         Switch sw;
-        R1Detector(std::function<void(int)> f);
+        R1Detector(std::function<void(float)> f);
         void waitForDetection();
 
     private:
         
-        std::function<void(int)> wait;
+        std::function<void(float)> wait;
 
 };
 

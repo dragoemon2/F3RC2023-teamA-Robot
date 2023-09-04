@@ -7,7 +7,7 @@
 #include "pins.hpp"
 
 
-Pusher::Pusher(std::function<void(int)> f, R2esp& esp32):
+Pusher::Pusher(std::function<void(float)> f, R2esp& esp32):
     pwmOut(PWM_5),
     dirOut(DIR_5),
     esp32(esp32)
@@ -44,7 +44,7 @@ void Pusher::pull(bool idle){
     }
 }
 
-R1Detector::R1Detector(std::function<void(int)> f): sw(PC_3)
+R1Detector::R1Detector(std::function<void(float)> f): sw(PC_3)
 {
     wait = f;
 }
