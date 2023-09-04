@@ -24,6 +24,8 @@
 #define PWM_4 (PB_13)
 #define DIR_4 (PB_2)
 
+#define BUZZER (PA_5)
+
 #if USING_R1
 
 //-----アーム-----

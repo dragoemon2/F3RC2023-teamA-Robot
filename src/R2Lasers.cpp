@@ -6,9 +6,9 @@
 R2Lasers::R2Lasers(DriveBase& driveBase):
     driveBase(driveBase),
 
-    laserCore1(PB_12),
-    laserCore2(PA_12),
-    laserCore3(PA_11),
+    laserCore1(LASER_1),
+    laserCore2(LASER_2),
+    laserCore3(LASER_3),
 
     laser1(130,-165,SOUTH,laserCore1),
     laser2(-130,-165,SOUTH,laserCore2),

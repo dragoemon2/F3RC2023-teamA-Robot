@@ -1,6 +1,7 @@
 #include "robot.hpp"
 #include "laserPos.hpp"
 #include "pins.hpp"
+#include "parameters.hpp"
 #include <chrono>
 
 using namespace std::chrono;
@@ -11,12 +12,21 @@ union FloatUIntUnion {
 };
 
 Robot::Robot()
+#if USING_R1
  :  motor0(RE_1_A, RE_1_B, PWM_1, DIR_1, MOTOR_0_KP_1, MOTOR_0_KI_1, MOTOR_0_KD_1, MOTOR_0_KP_2, MOTOR_0_KI_2, MOTOR_0_KD_2, 0),
     motor1(RE_2_A, RE_2_B, PWM_2, DIR_2, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
     motor2(RE_3_A, RE_3_B, PWM_3, DIR_3, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
     motor3(RE_4_A, RE_4_B, PWM_4, DIR_4, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
     driveBase(&motor0, &motor1, &motor2, &motor3),
-    buzzer(D0)
+    buzzer(BUZZER)
+#else
+ :  motor0(RE_1_A, RE_1_B, PWM_1, DIR_1, MOTOR_0_KP_1, MOTOR_0_KI_1, MOTOR_0_KD_1, MOTOR_0_KP_2, MOTOR_0_KI_2, MOTOR_0_KD_2),
+    motor1(RE_2_A, RE_2_B, PWM_2, DIR_2, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
+    motor2(RE_3_A, RE_3_B, PWM_3, DIR_3, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
+    motor3(RE_4_A, RE_4_B, PWM_4, DIR_4, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
+    driveBase(&motor0, &motor1, &motor2, &motor3),
+    buzzer(BUZZER)
+#endif
 {
     timer.start();
     driveBase.attachLoop([this]{loop();});

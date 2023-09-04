@@ -17,7 +17,7 @@ Pusher::Pusher(std::function<void(float)> f, R2esp& esp32):
 
 void Pusher::push(bool idle){
     dirOut.write(0);
-    pwmOut.write(0.3);
+    //pwmOut.write(0.3);
 
     esp32.attachPushed([this](){pwmOut.write(0);});
 
@@ -33,7 +33,7 @@ void Pusher::push(bool idle){
 
 void Pusher::pull(bool idle){
     dirOut.write(1);
-    pwmOut.write(0.3);
+    //pwmOut.write(0.3);
 
     esp32.attachPulled([this](){pwmOut.write(0);});
     if(idle){

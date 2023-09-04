@@ -1,4 +1,5 @@
 #include "R1.hpp"
+#include "R2.hpp"
 #include "parameters.hpp"
 #include "driveBase.hpp"
 #include "pins.hpp"
@@ -7,8 +8,8 @@
 void dir_check(DriveBase& driveBase){
     driveBase.attachLoop([&driveBase]{printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));});
     //driveBase.goTo(1000,0,0);
-    //driveBase.runNoEncoder(0,0,0,0.5,5);
-    driveBase.runNoEncoder(0.5,0,0,0,5);
+    driveBase.runNoEncoder(0,0,0,0.3,5);
+    //driveBase.runNoEncoder(0,0,0,0,5);
     while(1){
 
     }
@@ -121,5 +122,19 @@ void R1::debug(){
 }
 
 #else
+
+
+void R2::debug(){
+    //wait_seconds(10);
+    /*
+    driveBase.localization.setPosition(0,0,0);
+    lasers.front.activate(EAST, 1000);
+    driveBase.goTo(1000-ROBOTSIZE-100, 0, 0);
+    wait_seconds(3600);
+    */
+    //laser_test(this);
+    dir_check(driveBase);
+    //drive(driveBase);
+}
 
 #endif
