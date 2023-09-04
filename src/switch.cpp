@@ -1,13 +1,30 @@
 #include "switch.hpp"
 #include <chrono>
 
-Switch::Switch(PinName pin, unsigned int interval, unsigned int detectionThreshold): interruptin(pin), interval(interval), detectionThreshold(detectionThreshold)
+Switch::Switch(PinName pin, unsigned int interval, unsigned int detectionThreshold, bool high_on_pushed): interruptin(pin), high_on_pushed(high_on_pushed), interval(interval), detectionThreshold(detectionThreshold)
 {
+    
     monitoring = false;
     status = interruptin.read();
-    interruptin.rise([this] {riseInterrupt();});
-    interruptin.fall([this] {riseInterrupt();});
+    riseFunc = []{return;};
+    fallFunc = []{return;};
+    if(high_on_pushed){
+        interruptin.rise([this] {riseInterrupt();});
+        interruptin.fall([this] {riseInterrupt();});
+    }else{
+        interruptin.fall([this] {riseInterrupt();});
+        interruptin.rise([this] {riseInterrupt();});
+    }
 }
+
+void Switch::riseAttachOnce(std::function<void(void)> f){
+    riseFunc = f;
+}
+
+void Switch::fallAttachOnce(std::function<void(void)> f){
+    fallFunc = f;
+}
+
 
 //押されてるか否か
 bool Switch::get(){
@@ -34,12 +51,14 @@ void Switch::fallInterrupt(){
 
 //サンプリング．チャタリング対策
 void Switch::riseCheck(){
-    if(interruptin.read()){
+    if(interruptin.read() == high_on_pushed){
         counter++;
         if(counter >= detectionThreshold){
             status = true;
             ticker.detach();
             monitoring = false;
+            riseFunc();
+            riseFunc = []{return;};
         }
     }else{
         counter=0;
@@ -50,12 +69,14 @@ void Switch::riseCheck(){
 
 //サンプリング．チャタリング対策
 void Switch::fallCheck(){
-    if(!interruptin.read()){
+    if(interruptin.read() != high_on_pushed){
         counter++;
         if(counter >= detectionThreshold){
             status = false;
             ticker.detach();
             monitoring = false;
+            fallFunc();
+            fallFunc = []{return;};
         }
     }else{
         counter=0;

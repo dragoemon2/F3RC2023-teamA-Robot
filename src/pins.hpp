@@ -49,8 +49,6 @@
 #define XSHUT_3 (PA_6)
 #define XSHUT_4 (PC_1)
 
-
-
 #else
 
 

@@ -2,6 +2,7 @@
 #include <functional>
 #include "servoMotor.hpp"
 #include "airCylinder.hpp"
+#include "switch.hpp"
 
 class BottleArm
 {
@@ -10,6 +11,8 @@ class BottleArm
         DigitalOut dirOut;
         ServoMotor spinner;
         ServoMotor hand;
+        Switch limit_switch1;
+        Switch limit_switch2;
         void close(bool idle=true);
         void open(bool idle=true);
         void up(bool idle=true);

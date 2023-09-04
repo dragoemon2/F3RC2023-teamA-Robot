@@ -1,13 +1,17 @@
 #pragma once
 #include <mbed.h>
+#include <functional>
 
 class Switch
 {
     public:
         InterruptIn interruptin;
         Ticker ticker;
+        bool high_on_pushed;
         bool get(); //状態(押されてるかどうか)
-        Switch(PinName pin, unsigned int interval=10, unsigned int detectionThreshold=3);
+        void riseAttachOnce(std::function<void(void)> f);
+        void fallAttachOnce(std::function<void(void)> f);
+        Switch(PinName pin, unsigned int interval=10, unsigned int detectionThreshold=3, bool high_on_pushed=true);
     private:
         unsigned int interval; //サンプリング周期
         unsigned int detectionThreshold; //検出回数(立ち上がり/立ち下がりを含まない)
@@ -15,6 +19,8 @@ class Switch
         void fallInterrupt(); //立ち下がり割り込み
         void riseCheck(); //サンプリング
         void fallCheck(); //サンプリング
+        std::function<void(void)> riseFunc;
+        std::function<void(void)> fallFunc;
         bool status; //状態(押されてるかどうか)
         bool monitoring;
         unsigned int counter=0;

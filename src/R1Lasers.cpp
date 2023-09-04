@@ -1,12 +1,13 @@
 #include "R1Lasers.hpp"
+#include "pins.hpp"
 
 R1Lasers::R1Lasers(DriveBase& driveBase):
     driveBase(driveBase),
 
-    laserCore1(66, PB_12),
-    laserCore2(65, PA_12),
+    laserCore1(66, XSHUT_1),
+    laserCore2(65, XSHUT_2),
     //laserCore3(3, A2),
-    laserCore4(64, PA_11),
+    laserCore4(64, XSHUT_4),
 
     laser1(130,-165,SOUTH,laserCore1),
     laser2(-130,-165,SOUTH,laserCore2),
