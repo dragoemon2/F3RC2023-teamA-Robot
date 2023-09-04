@@ -12,8 +12,8 @@ Switch::Switch(PinName pin, unsigned int interval, unsigned int detectionThresho
         interruptin.rise([this] {riseInterrupt();});
         interruptin.fall([this] {fallInterrupt();});
     }else{
-        interruptin.fall([this] {fallInterrupt();});
-        interruptin.rise([this] {riseInterrupt();});
+        interruptin.fall([this] {riseInterrupt();});
+        interruptin.rise([this] {fallInterrupt();});
     }
 }
 
