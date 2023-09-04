@@ -10,9 +10,9 @@ Switch::Switch(PinName pin, unsigned int interval, unsigned int detectionThresho
     fallFunc = []{return;};
     if(high_on_pushed){
         interruptin.rise([this] {riseInterrupt();});
-        interruptin.fall([this] {riseInterrupt();});
+        interruptin.fall([this] {fallInterrupt();});
     }else{
-        interruptin.fall([this] {riseInterrupt();});
+        interruptin.fall([this] {fallInterrupt();});
         interruptin.rise([this] {riseInterrupt();});
     }
 }
