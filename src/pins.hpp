@@ -2,9 +2,7 @@
 #include <mbed.h>
 #include "parameters.hpp"
 
-
 //-----足回り------
-
 
 //ロータリエンコーダー
 #define RE_1_A (PB_4)
@@ -55,7 +53,32 @@
 #define XSHUT_3 (PA_6)
 #define XSHUT_4 (PC_1)
 
+
+//-----esp32-----
+
+#define ESP_UART_RX (PA_10)
+#define ESP_UART_TX (PA_9)
+
 #else
+
+
+#define PWM_5 (PB_8)
+#define DIR_5 (PC_4)
+
+//------レーザー-----
+
+#define LASER_1 (PC_1)
+#define LASER_2 (PC_0)
+#define LASER_3 (PC_2)
+
+//------esp32-------
+
+#define ESP_UART_RX (PA_10)
+#define ESP_UART_TX (PA_9)
+
+//------マイクロスイッチ-------
+
+#define PASS_DETECT (PC_3)
 
 
 #endif
