@@ -24,6 +24,7 @@ class R2Lasers
         LaserPos laser3;
 
         LaserPairUse pair;
+        LaserUse rightback;
         LaserUse back;
 
         void scan(float* X, float* Y, float* D);

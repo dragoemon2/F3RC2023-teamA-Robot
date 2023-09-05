@@ -8,9 +8,9 @@ AirCylinder::AirCylinder(PinName pin): digitalOut(pin)
 }
 
 void AirCylinder::open(){
-    digitalOut.write(1);
+    digitalOut.write(0);
 }
 
 void AirCylinder::close(){
-    digitalOut.write(0);
+    digitalOut.write(1);
 }

@@ -13,22 +13,27 @@ BottleArm::BottleArm(std::function<void(int)> f): pwmOut(PWM_6), dirOut(DIR_6), 
 
 
 void BottleArm::open(bool idle){
+    #if USING_PETBOTTLE
     hand.moveTo(90);
     if(idle){
         wait(1000);
     }
+    #endif
 }
 
 void BottleArm::close(bool idle){
+    #if USING_PETBOTTLE
     hand.moveTo(0);
     if(idle){
         wait(1000);
     }
+    #endif
 }
 
 
 void BottleArm::up(bool idle){
     //slider.moveTo();
+    #if USING_PETBOTTLE
     dirOut.write(0);
     pwmOut.write(0.3);
     limit_switch1.riseAttachOnce([this](){pwmOut.write(0);});
@@ -37,10 +42,12 @@ void BottleArm::up(bool idle){
             wait(0.001);
         }
     }
+    #endif
 }
 
 void BottleArm::down(bool idle){
     //slider.moveTo();
+    #if USING_PETBOTTLE
     dirOut.write(1);
     pwmOut.write(0.3);
     limit_switch2.riseAttachOnce([this](){pwmOut.write(0);});
@@ -49,20 +56,27 @@ void BottleArm::down(bool idle){
             wait(0.001);
         }
     }
+    #endif
 }
 
 void BottleArm::spinDown(bool idle){
+    #if USING_PETBOTTLE
+
     spinner.moveTo(0);
     if(idle){
         wait(1000);
     }
+    #endif
 }
 
 void BottleArm::spinUp(bool idle){
+    #if USING_PETBOTTLE
+
     spinner.moveTo(90);
     if(idle){
         wait(1000);
     }
+    #endif
 }
 
 

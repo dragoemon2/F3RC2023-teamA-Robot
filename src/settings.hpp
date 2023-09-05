@@ -2,7 +2,9 @@
 
 
 //R1とR2どっち？
-#define USING_R1 (0)
+#define USING_R1 (1)
+
+#define USING_PETBOTTLE (1)
 
 
 #define SIMULATION (0)

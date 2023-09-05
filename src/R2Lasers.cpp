@@ -16,6 +16,7 @@ R2Lasers::R2Lasers(DriveBase& driveBase):
 
     pair(EAST, EAST_WALL_X, laser1, laser2),
     //back(NORTH, NORTH_WALL_Y, laser3),
+    rightback(EAST, EAST_WALL_X, laser2),
     back(SOUTH, SOUTH_WALL_Y, laser3)
 {
     driveBase.localization.addLocalization([this](float* X, float* Y, float* D) { scan(X, Y, D); }, 0);
@@ -23,7 +24,8 @@ R2Lasers::R2Lasers(DriveBase& driveBase):
 
 
 void R2Lasers::scan(float* X, float* Y, float* D){
-    pair.scan(X, Y, D);
+    rightback.scan(X, Y, D);
+    //pair.scan(X, Y, D);
     //back.scan(X, Y, D);
     //back.scan(X, Y, D);
     //printf("%d %d %d\n", int(*X),int(*Y),int(180/PI* (*D)));

@@ -27,7 +27,7 @@ R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([thi
     
 }
 #else
-R1::R1(): Robot(), lasers(driveBase), bottleArm([this](int x){wait_seconds(x);})
+R1::R1(): Robot(), containerArm([this](int x){wait_seconds(x);}), lasers(driveBase), bottleArm([this](int x){wait_seconds(x);})
 {
     driveBase.attachLoop([this](){loop();});
 
@@ -64,7 +64,7 @@ void R1::run(unsigned int movement_id){
         driveBase.localization.setPosition(WEST_WALL_X + ROBOTSIZE, NORTH_WALL_Y - ROBOTSIZE, -PI/2); //壁当てでスタート
         //lasers.pair.activate(WEST, -WEST_WALL_X);
         //lasers.front.activate(SOUTH, -SOUTH_WALL_Y);
-        //bottleArm.down(false);
+        bottleArm.down(false);
         driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2); //ペットボトル置き場手前
 
         break;
@@ -74,8 +74,8 @@ void R1::run(unsigned int movement_id){
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
 
         //ペットボトル回収
-        //bottleArm.close(true);
-        //bottleArm.up(false);
+        bottleArm.close(true);
+        bottleArm.up(false);
 
         lasers.front.inactivate();
         lasers.pair.inactivate();
@@ -89,8 +89,8 @@ void R1::run(unsigned int movement_id){
     case GOTO_FIRST_DELIVERY:
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
         
-        //containerArm.close(true);
-        //bottleArm.down(false);
+        containerArm.close(true);
+        bottleArm.down(false);
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
         driveBase.rotateTo(0);
         //bottleArm.open(true);
@@ -109,7 +109,7 @@ void R1::run(unsigned int movement_id){
         //受け渡し
         //R1から受け渡し検知信号を受信
         wait_seconds(1); 
-        //containerArm.open(false);
+        containerArm.open(false);
 
         driveBase.rotateTo(-PI/2);
 
@@ -121,8 +121,8 @@ void R1::run(unsigned int movement_id){
     case GOTO_SECOND_CONTAINER_STORAGE:
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
 
-        //bottleArm.close(true);
-        //bottleArm.up(false);
+        bottleArm.close(true);
+        bottleArm.up(false);
 
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
@@ -133,11 +133,11 @@ void R1::run(unsigned int movement_id){
     case GOTO_SECOND_DELIVERY:
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
         
-        //containerArm.close(true);
-        //bottleArm.down(false);
+        containerArm.close(true);
+        bottleArm.down(false);
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
         driveBase.rotateTo(0);
-        //bottleArm.open(true);
+        bottleArm.open(true);
         driveBase.goTo(WEST_WALL_X + 1900, SOUTH_WALL_Y + 1200, 0);
         break;
 
@@ -165,8 +165,8 @@ void R1::run(unsigned int movement_id){
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 100, -PI/2);
         
         //ペットボトル回収
-        //bottleArm.close(true);
-        //bottleArm.up(false);
+        bottleArm.close(true);
+        bottleArm.up(false);
 
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
@@ -175,10 +175,10 @@ void R1::run(unsigned int movement_id){
 
     case GO_FRONTOF_POSTZONE:
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);//コンテナ置き場手前に移動
-        //containerArm.close(true);
-        //bottleArm.down(false);
+        containerArm.close(true);
+        bottleArm.down(false);
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + 1200, -PI/2);
-        //bottleArm.open(true);
+        bottleArm.open(true);
         driveBase.goTo(WEST_WALL_X+2200, SOUTH_WALL_Y + 1200, -PI/2);
 
         
@@ -196,7 +196,7 @@ void R1::run(unsigned int movement_id){
         
     
     default:
-        printf("pass");
+        //printf("pass");
         break;
     }
 

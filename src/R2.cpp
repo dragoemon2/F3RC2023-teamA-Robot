@@ -45,14 +45,16 @@ void R2::run(unsigned int movement_id){
     switch (movement_id)
     {
     case R2_MOVEMENT::GOTO_FIRST_RECEIVE:
-        driveBase.localization.setPosition(EAST_WALL_X-ROBOTSIZE-50,NORTH_WALL_Y-ROBOTSIZE,PI);
+        driveBase.localization.setPosition(EAST_WALL_X-ROBOTSIZE,NORTH_WALL_Y-ROBOTSIZE-50,PI);
 
-        lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        //lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        lasers.rightback.activate(NORTH, NORTH_WALL_Y);
         lasers.back.activate(EAST, EAST_WALL_X);
 
         driveBase.goTo(EAST_WALL_X-1798-500+ROBOTSIZE+150,SOUTH_WALL_Y+1200,PI);
 
-        lasers.pair.inactivate();
+        //lasers.pair.inactivate();
+        lasers.rightback.inactivate();
 
         driveBase.goTo(2200,SOUTH_WALL_Y+1200,PI);
 
@@ -66,13 +68,15 @@ void R2::run(unsigned int movement_id){
     case R2_MOVEMENT::GOTO_POSTZONE2:
         driveBase.goTo(2864,1920,PI/2);
 
-        lasers.pair.activate(EAST, EAST_WALL_X);
+        //lasers.pair.activate(EAST, EAST_WALL_X);
+        lasers.rightback.activate(EAST, EAST_WALL_X);
         lasers.back.activate(SOUTH, -SOUTH_WALL_Y);
 
         driveBase.goTo(2864,2210,PI/2);
 
-        lasers.pair.inactivate();
+        //lasers.pair.inactivate();
         lasers.back.inactivate();
+        lasers.rightback.inactivate();
 
         //pusher.push(true);
         //pusher.pull(false);
@@ -82,12 +86,14 @@ void R2::run(unsigned int movement_id){
     case R2_MOVEMENT::GOTO_SECOND_RECEIVE:
         driveBase.goTo(2864,1920,PI/2);
 
-        lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        //lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        lasers.rightback.activate(NORTH, NORTH_WALL_Y);
         lasers.back.activate(EAST, EAST_WALL_X);
 
         driveBase.goTo(2200,SOUTH_WALL_Y+1200,PI);
 
-        lasers.pair.inactivate();
+        //lasers.pair.inactivate();
+        lasers.rightback.inactivate();
         lasers.back.inactivate();
         break; 
 
@@ -99,7 +105,8 @@ void R2::run(unsigned int movement_id){
         driveBase.goTo(4050, SOUTH_WALL_Y+1200, 0);
         driveBase.rotateTo(-PI/2);
         driveBase.goTo(4050,500,0);
-        lasers.pair.activate(SOUTH, -SOUTH_WALL_Y);
+        //lasers.pair.activate(SOUTH, -SOUTH_WALL_Y);
+        lasers.rightback.activate(SOUTH, -SOUTH_WALL_Y);
         driveBase.goTo(4280,213,0);
 
         lasers.pair.inactivate();

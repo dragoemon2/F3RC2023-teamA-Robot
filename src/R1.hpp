@@ -11,7 +11,7 @@ class R1: public Robot
 {
     public:
         
-        //ContainerArm containerArm;
+        ContainerArm containerArm;
         R1Lasers lasers;
         BottleArm bottleArm;
         R1();

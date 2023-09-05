@@ -45,6 +45,7 @@ R2 r2;
 
 int main(){
     //r2.init_led();
+    //r2.debug();
     r2.game();
     while(1){
 
