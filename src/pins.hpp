@@ -15,6 +15,7 @@
 #define RE_4_B (PC_12)
 
 //DCモーター
+/*
 #define PWM_1 (PB_1)
 #define DIR_1 (PC_9)
 #define PWM_2 (PB_15)
@@ -23,6 +24,28 @@
 #define DIR_3 (PC_6)
 #define PWM_4 (PB_13)
 #define DIR_4 (PB_2)
+*/
+
+//motor0
+#define PWM_1 (PB_1) 
+#define DIR_1 (PC_9)
+
+//motor1
+#define PWM_3 (PB_14)
+#define DIR_3 (PC_6)
+
+//motor2
+#define PWM_4 (PB_13)
+#define DIR_4 (PB_2)
+
+//motor3
+#define PWM_5 (PB_8)
+#define DIR_5 (PC_4)
+
+#define LED1 (PA_15)
+
+
+
 
 #define BUZZER (PA_5)
 
@@ -31,8 +54,8 @@
 //-----アーム-----
 //DCモーター
 // #define PWM_5 (PB_8)
-#define PWM_5 (PC_7)
-#define DIR_5 (PC_4)
+#define PWM_6 (PB_9)
+#define DIR_6 (PB_10)
 
 //サーボ
 #define SV_1_SIGNAL (PA_7)
@@ -55,6 +78,9 @@
 #define XSHUT_3 (PA_6)
 #define XSHUT_4 (PC_1)
 
+#define USRBTN1 (PC_0)
+#define USRBTN2 (PC_3)
+
 
 //-----esp32-----
 
@@ -64,8 +90,8 @@
 #else
 
 
-#define PWM_5 (PB_8)
-#define DIR_5 (PC_4)
+#define PWM_6 (PB_9)
+#define DIR_6 (PB_10)
 
 //------レーザー-----
 

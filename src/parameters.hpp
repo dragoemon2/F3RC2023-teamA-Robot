@@ -80,19 +80,19 @@
 #define MOTOR_3_KI_1 (0.06f)
 #define MOTOR_3_KD_1 (0.0f)
 
-#define MOTOR_0_KP_2 (0.00014f)
+#define MOTOR_0_KP_2 (0.00016f*1.17f)
 #define MOTOR_0_KI_2 (0.000000f)
 #define MOTOR_0_KD_2 (0.00000f)
 
-#define MOTOR_1_KP_2 (0.00016f)
+#define MOTOR_1_KP_2 (0.00016f*1.17f)
 #define MOTOR_1_KI_2 (0.00000f)
 #define MOTOR_1_KD_2 (0.000000f)
 
-#define MOTOR_2_KP_2 (0.00016f)
+#define MOTOR_2_KP_2 (0.00016f*1.17f)
 #define MOTOR_2_KI_2 (0.00000f)
 #define MOTOR_2_KD_2 (0.00000f)
 
-#define MOTOR_3_KP_2 (0.00016f)
+#define MOTOR_3_KP_2 (0.00016f*1.17f)
 #define MOTOR_3_KI_2 (0.000000f)
 #define MOTOR_3_KD_2 (0.0f)
 
@@ -126,11 +126,11 @@
 #define MAX_DELTA_D ((MAX_ROTATE_SPEED)/(SPEED_ADJUSTMENT_FREQUENCY))
 
 //コントローラー等
-#define ADJUSTMENT_SPEED_LEFT (100.0f)
-#define ADJUSTMENT_SPEED_RIGHT (30.0f)
+#define ADJUSTMENT_SPEED_LEFT (500.0f)
+#define ADJUSTMENT_SPEED_RIGHT (100.0f)
 #define ADJUSTMENT_ROTATE_SPEED (0.5f)
 
-#define HAND_SPEED_LEFT (1500.0f)
+#define HAND_SPEED_LEFT (500.0f)
 #define HAND_SPEED_RIGHT (100.0f)
 #define HAND_ROTATE_SPEED (0.5f)
 

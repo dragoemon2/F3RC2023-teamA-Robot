@@ -27,8 +27,12 @@ class Robot
         Buzzer buzzer;
         BKPRegister backUpRegister;
 
+        DigitalOut led;
+
         //タイマー
         Timer timer;
+
+        Ticker led_ticker;
 
         int next_localization_time;
 
@@ -37,6 +41,8 @@ class Robot
 
         void reboot();
         void init_status();
+
+        void init_led();
 
         void wait_seconds(float seconds);
 
@@ -49,5 +55,6 @@ class Robot
         int movementNum = 0;
         int motionNum = 0;
     private:
+        bool current_led=false;
         int next_localization;
 };

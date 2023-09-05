@@ -8,8 +8,8 @@
 
 
 Pusher::Pusher(std::function<void(float)> f, R2esp& esp32):
-    pwmOut(PWM_5),
-    dirOut(DIR_5),
+    pwmOut(PWM_6),
+    dirOut(DIR_6),
     esp32(esp32)
 {
     wait = f;

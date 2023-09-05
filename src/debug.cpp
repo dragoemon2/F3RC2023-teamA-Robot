@@ -8,7 +8,7 @@
 void dir_check(DriveBase& driveBase){
     driveBase.attachLoop([&driveBase]{printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));});
     //driveBase.goTo(1000,0,0);
-    driveBase.runNoEncoder(0,0,0,0.3,5);
+    driveBase.runNoEncoder(0,0,0,-0.3,60);
     //driveBase.runNoEncoder(0,0,0,0,5);
     while(1){
 
@@ -26,7 +26,7 @@ void show(DriveBase& driveBase){
 //動作テスト
 void drive(DriveBase &driveBase){
     //10秒待機
-    wait_us(1000000*10);
+    //wait_us(1000000*10);
 
     //出力を設定
     driveBase.attachLoop([&driveBase](){printf("%d,%d\n", int(driveBase.localization.posX), int(driveBase.localization.posY));});
@@ -63,7 +63,7 @@ void speed_test(DriveMotor& test_motor){
     //test_motor.rotateTo(1000,false); 
     
 
-    test_motor.rotatePermanent(1000,false);
+    test_motor.rotatePermanent(500,false);
 
     while(true){
         printf("%d, %d, 0, 0\n", int(test_motor._s2), int(test_motor._s1));
@@ -85,7 +85,7 @@ void speed_test(DriveMotor& test_motor){
 //一定duty比で動かす
 void motor_test(DriveMotor& test_motor){
     timer.start();
-    test_motor.setPWM(0.3);
+    test_motor.setPWM(-0.3);
     float l = test_motor.encoder.getAmount();
     while(chrono::duration<float>(timer.elapsed_time()).count() < 3000){
         int v = int((test_motor.encoder.getAmount() - l)*200);
@@ -106,6 +106,16 @@ void laser_test(R1* r1){
     r1->wait_seconds(3600);
 }
 
+void arm_test(R1* r1){
+    r1->bottleArm.up();
+    while(1){
+        
+    }
+    /*while(1){
+        printf("%d %d\n", r1->bottleArm.limit_switch1.get(), r1->bottleArm.limit_switch2.get());
+    }*/
+}
+
 
 
 void R1::debug(){
@@ -116,12 +126,24 @@ void R1::debug(){
     driveBase.goTo(1000-ROBOTSIZE-100, 0, 0);
     wait_seconds(3600);
     */
+    arm_test(this);
     //laser_test(this);
-    dir_check(driveBase);
-    //drive(driveBase);
+    //motor_test(*driveBase.motors[1]);
+    //dir_check(driveBase);
 }
 
+
 #else
+
+
+void motors_test(DriveBase& driveBase){
+    //driveBase.attachLoop([&driveBase](){printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));});
+    driveBase.motors[3]->rotatePermanent(500,false);
+    while(1){
+        printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));
+    }
+}
+
 
 
 void R2::debug(){
@@ -133,8 +155,16 @@ void R2::debug(){
     wait_seconds(3600);
     */
     //laser_test(this);
-    dir_check(driveBase);
-    //drive(driveBase);
+    //motor_test(*driveBase.motors[3]);
+    //show(driveBase);
+    //speed_test(*driveBase.motors[0]);
+    //speed_test(*driveBase.motors[1]);
+    //motors_test(driveBase);
+    //speed_test(*driveBase.motors[1]);
+    //show(driveBase);
+
+    //dir_check(driveBase);
+    motor_test(*driveBase.motors[3]);
 }
 
 #endif

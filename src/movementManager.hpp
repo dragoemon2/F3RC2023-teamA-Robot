@@ -84,6 +84,8 @@ class MovementManager{
         bool ConnectionTimeOutOccured();
 
         MovementManager();
+
+        int _s1;
 };
 
 #endif

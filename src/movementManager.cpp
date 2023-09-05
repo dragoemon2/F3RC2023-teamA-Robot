@@ -1,4 +1,5 @@
 #include "parameters.hpp"
+#include "pins.hpp"
 
 #if USING_R1
 
@@ -54,7 +55,7 @@ inline float joystick_filter(float value, float dead=0.3f){
 //初期化
 MovementManager::MovementManager()
 #if USING_CONTROLLER
-    :serial(115200, PA_9, PA_10)
+    :serial(115200, ESP_UART_TX, ESP_UART_RX)
 #endif
 {
     flag = false; //flagを下げておく
@@ -67,12 +68,14 @@ MovementManager::MovementManager()
 }
 
 void MovementManager::update(char* str){
+    _s1 =1;
     int lx;
     int ly;
     int rx;
     int ry;
     unsigned int button_mask;
     int N = sscanf(str, "%d %d %d %d %d", &lx, &ly, &rx, &ry, &button_mask);
+
     if(N!=5){
         return;
     }

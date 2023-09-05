@@ -27,7 +27,7 @@ R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([thi
     
 }
 #else
-R1::R1(): Robot(), lasers(driveBase)
+R1::R1(): Robot(), lasers(driveBase), bottleArm([this](int x){wait_seconds(x);})
 {
     driveBase.attachLoop([this](){loop();});
 
@@ -45,6 +45,8 @@ void R1::game(){
     //コントローラー接続タイムアウトが発生するようにする．
     mm.connected_before = true;
     #endif
+
+    mm.mode = HAND_MODE;
 
     next();
 }
@@ -262,8 +264,7 @@ void R1::loop(){
     if(mm.ConnectionTimeOutOccured()){
         mm.mode = COMPLETELY_AUTO_MODE;
     }
-
-    
+    printf("%d\n", mm._s1);
     printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
 }
 

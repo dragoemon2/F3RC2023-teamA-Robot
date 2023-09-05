@@ -10,7 +10,6 @@ inline void pin_check(){
     #if 1
     printf("PWM\n");
     PwmOut pwm1(PWM_1);
-    PwmOut pwm2(PWM_2);
     PwmOut pwm3(PWM_3);
     PwmOut pwm4(PWM_4);
     PwmOut pwm5(PWM_5);
@@ -19,7 +18,6 @@ inline void pin_check(){
     #if 1
     printf("DIR\n");
     DigitalOut dir1(DIR_1);
-    DigitalOut dir2(DIR_2);
     DigitalOut dir3(DIR_3);
     DigitalOut dir4(DIR_4);
     DigitalOut dir5(DIR_5);

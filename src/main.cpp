@@ -21,7 +21,8 @@ R1 r1;
 int main(){
     //開始
     printf("start\n");
-    r1.game();
+    r1.debug();
+    //pin_check();
     
 
     //robot.game();
@@ -43,7 +44,11 @@ void mbed_error_hook(const mbed_error_ctx *error_context)
 R2 r2;
 
 int main(){
-    //r2.debug();
+    //r2.init_led();
+    r2.game();
+    while(1){
+
+    }
     
 
 }

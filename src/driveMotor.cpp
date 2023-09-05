@@ -47,6 +47,8 @@ void DriveMotor::rotate(float targetSpeed){
 
     //加速度を制限する
 
+    #if 1
+
     float targetAcc = (targetSpeed - speed) * SPEED_ADJUSTMENT_FREQUENCY;
 
     if(targetAcc > MAX_ACCELERATION){
@@ -54,6 +56,8 @@ void DriveMotor::rotate(float targetSpeed){
     }else if(targetAcc < -MAX_ACCELERATION){
         targetSpeed = speed - MAX_ACCELERATION / SPEED_ADJUSTMENT_FREQUENCY;
     }
+
+    #endif
 
     _s2 = targetSpeed;
 

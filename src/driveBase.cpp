@@ -69,6 +69,8 @@ void DriveBase::go(float targetSpeedX, float targetSpeedY, float targetSpeedD, b
     float targetAccD = (targetSpeedD - lastTargetSpeedD) * SPEED_ADJUSTMENT_FREQUENCY;
     #endif
 
+    
+
     float targetAccR = sqrtf(targetAccX*targetAccX + targetAccY*targetAccY);
 
     //加速度を制限する
@@ -84,6 +86,9 @@ void DriveBase::go(float targetSpeedX, float targetSpeedY, float targetSpeedD, b
     }else if(targetAccD < -MAX_ROTATE_ACCELERATION){
         targetSpeedD = localization.rotateSpeed - MAX_ROTATE_ACCELERATION / SPEED_ADJUSTMENT_FREQUENCY;
     }
+
+    
+
 
     
     //デバッグ用

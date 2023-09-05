@@ -6,7 +6,7 @@
 #include "pins.hpp"
 
 
-BottleArm::BottleArm(std::function<void(int)> f): pwmOut(PWM_5), dirOut(DIR_5), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1), limit_switch2(LS_2)
+BottleArm::BottleArm(std::function<void(int)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
 {
     wait = f;
 }

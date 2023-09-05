@@ -15,18 +15,20 @@ union FloatUIntUnion {
 Robot::Robot()
 #if USING_R1
  :  motor0(RE_1_A, RE_1_B, PWM_1, DIR_1, MOTOR_0_KP_1, MOTOR_0_KI_1, MOTOR_0_KD_1, MOTOR_0_KP_2, MOTOR_0_KI_2, MOTOR_0_KD_2, 0),
-    motor1(RE_2_A, RE_2_B, PWM_2, DIR_2, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
-    motor2(RE_3_A, RE_3_B, PWM_3, DIR_3, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
-    motor3(RE_4_A, RE_4_B, PWM_4, DIR_4, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
+    motor1(RE_2_A, RE_2_B, PWM_3, DIR_3, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
+    motor2(RE_3_A, RE_3_B, PWM_4, DIR_4, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
+    motor3(RE_4_A, RE_4_B, PWM_5, DIR_5, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
     driveBase(&motor0, &motor1, &motor2, &motor3),
-    buzzer(BUZZER)
+    buzzer(BUZZER),
+    led(LED1)
 #else
  :  motor0(RE_1_A, RE_1_B, PWM_1, DIR_1, MOTOR_0_KP_1, MOTOR_0_KI_1, MOTOR_0_KD_1, MOTOR_0_KP_2, MOTOR_0_KI_2, MOTOR_0_KD_2),
-    motor1(RE_2_A, RE_2_B, PWM_2, DIR_2, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
-    motor2(RE_3_A, RE_3_B, PWM_3, DIR_3, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
-    motor3(RE_4_A, RE_4_B, PWM_4, DIR_4, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
+    motor1(RE_2_A, RE_2_B, PWM_3, DIR_3, MOTOR_1_KP_1, MOTOR_1_KI_1, MOTOR_1_KD_1, MOTOR_1_KP_2, MOTOR_1_KI_2, MOTOR_1_KD_2),
+    motor2(RE_3_A, RE_3_B, PWM_4, DIR_4, MOTOR_2_KP_1, MOTOR_2_KI_1, MOTOR_2_KD_1, MOTOR_2_KP_2, MOTOR_2_KI_2, MOTOR_2_KD_2),
+    motor3(RE_4_A, RE_4_B, PWM_5, DIR_5, MOTOR_3_KP_1, MOTOR_3_KI_1, MOTOR_3_KD_1, MOTOR_3_KP_2, MOTOR_3_KI_2, MOTOR_3_KD_2),
     driveBase(&motor0, &motor1, &motor2, &motor3),
-    buzzer(BUZZER)
+    buzzer(BUZZER),
+    led(LED1)
 #endif
 {
     timer.start();
@@ -50,6 +52,12 @@ void Robot::stopCurrentMovement(){
     driveBase.stopMovement();
     //アームとかも止める
 }
+
+
+void Robot::init_led(){
+    led_ticker.attach([this](){current_led = !current_led; led.write(current_led);}, std::chrono::milliseconds(500));
+}
+
 
 
 void Robot::init_arms(){

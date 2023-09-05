@@ -10,9 +10,10 @@
 class R1: public Robot
 {
     public:
-        //BottleArm bottleArm;
+        
         //ContainerArm containerArm;
         R1Lasers lasers;
+        BottleArm bottleArm;
         R1();
         void moveHand();
         void adjustment();

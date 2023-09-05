@@ -25,7 +25,7 @@ R2Lasers::R2Lasers(DriveBase& driveBase):
 void R2Lasers::scan(float* X, float* Y, float* D){
     pair.scan(X, Y, D);
     //back.scan(X, Y, D);
-    back.scan(X, Y, D);
+    //back.scan(X, Y, D);
     //printf("%d %d %d\n", int(*X),int(*Y),int(180/PI* (*D)));
 }
 

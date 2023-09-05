@@ -45,7 +45,7 @@ void R2::run(unsigned int movement_id){
     switch (movement_id)
     {
     case R2_MOVEMENT::GOTO_FIRST_RECEIVE:
-        driveBase.localization.setPosition(EAST_WALL_X-ROBOTSIZE,NORTH_WALL_Y-ROBOTSIZE,PI);
+        driveBase.localization.setPosition(EAST_WALL_X-ROBOTSIZE-50,NORTH_WALL_Y-ROBOTSIZE,PI);
 
         lasers.pair.activate(NORTH, NORTH_WALL_Y);
         lasers.back.activate(EAST, EAST_WALL_X);
@@ -74,8 +74,8 @@ void R2::run(unsigned int movement_id){
         lasers.pair.inactivate();
         lasers.back.inactivate();
 
-        pusher.push(true);
-        pusher.pull(false);
+        //pusher.push(true);
+        //pusher.pull(false);
 
         break;
 
@@ -102,8 +102,10 @@ void R2::run(unsigned int movement_id){
         lasers.pair.activate(SOUTH, -SOUTH_WALL_Y);
         driveBase.goTo(4280,213,0);
 
-        pusher.push(true);
-        pusher.pull(false);
+        lasers.pair.inactivate();
+
+        //pusher.push(true);
+        //pusher.pull(false);
 
         break;
 

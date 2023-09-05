@@ -14,8 +14,10 @@ class BottleArm
         DigitalOut dirOut;
         ServoMotor spinner;
         ServoMotor hand;
-        Switch limit_switch1;
-        Switch limit_switch2;
+        //Switch limit_switch1;
+        //Switch limit_switch2;
+        SimpleSwitch limit_switch1;
+        SimpleSwitch limit_switch2;
         void close(bool idle=true);
         void open(bool idle=true);
         void up(bool idle=true);

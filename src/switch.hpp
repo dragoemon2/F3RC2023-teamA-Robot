@@ -25,3 +25,18 @@ class Switch
         bool monitoring;
         unsigned int counter=0;
 };
+
+class SimpleSwitch
+{
+    public:
+        DigitalIn digitalin;
+        Ticker ticker;
+        SimpleSwitch(PinName pin, bool high_on_pushed=true);
+        bool get();
+        void check();
+        void riseAttachOnce(std::function<void(void)> f);
+        void fallAttachOnce(std::function<void(void)> f);
+        bool high_on_pushed;
+        int monitoring=0;
+        std::function<void(void)> func;
+};

@@ -85,3 +85,46 @@ void Switch::fallCheck(){
     }
 }
 
+
+
+
+SimpleSwitch::SimpleSwitch(PinName pin, bool high_on_pushed): digitalin(pin), high_on_pushed(high_on_pushed)
+{
+    func = []{};
+}
+
+
+bool SimpleSwitch::get(){
+    return digitalin.read() == high_on_pushed;
+}
+
+
+
+void SimpleSwitch::check(){
+    if(get() && monitoring == 1){
+        func();
+        ticker.detach();
+        monitoring = 0;
+    }
+
+    else if(!get() && monitoring == -1){
+        func();
+        ticker.detach();
+        monitoring = 0;
+    }
+    
+}
+
+
+void SimpleSwitch::riseAttachOnce(std::function<void(void)> f){
+    func = f;
+    monitoring = 1;
+    ticker.attach([this](){check();}, std::chrono::milliseconds(30));
+}
+
+
+void SimpleSwitch::fallAttachOnce(std::function<void(void)> f){
+    func = f;
+    monitoring = -1;
+    ticker.attach([this](){check();}, std::chrono::milliseconds(30));
+}
