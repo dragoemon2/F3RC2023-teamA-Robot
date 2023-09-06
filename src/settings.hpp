@@ -11,7 +11,6 @@
 #define USE_FRONT_LASER (1)
 #define USE_BACK_LASER (1)
 
-
 #define SIMULATION (0)
 
 #if USING_R1

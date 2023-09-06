@@ -110,8 +110,17 @@ void arm_test(R1* r1){
     //r1->bottleArm.down();
     //r1->bottleArm.up();
 
+    //r1->bottleArm.spinDown();
+    
     r1->bottleArm.close();
+    r1->bottleArm.spinDown();
+    //r1->bottleArm.spinDown();
     r1->bottleArm.open();
+    r1->bottleArm.spinUp();
+
+    //r1->bottleArm.open();
+    //r1->bottleArm.spinDown();
+    //r1->bottleArm.open();
 
 
     /*

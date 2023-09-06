@@ -60,7 +60,7 @@
 
 //サーボ
 #define SV_1_SIGNAL (PA_7)
-#define SV_2_SIGNAL (PA_8)
+#define SV_2_SIGNAL (PA_6)
 
 //リミットスイッチ
 #define LS_1 (PC_11)

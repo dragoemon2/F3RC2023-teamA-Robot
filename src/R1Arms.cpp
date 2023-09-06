@@ -6,7 +6,7 @@
 #include "pins.hpp"
 
 
-BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
+BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_2_SIGNAL), hand(SV_1_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
 {
     wait = f;
 }
@@ -14,7 +14,7 @@ BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_6), dirOut(DIR_6)
 
 void BottleArm::open(bool idle){
     #if USING_PETBOTTLE
-    hand.moveTo(90);
+    hand.moveTo(0);
     if(idle){
         wait(1);
     }
@@ -23,7 +23,7 @@ void BottleArm::open(bool idle){
 
 void BottleArm::close(bool idle){
     #if USING_PETBOTTLE
-    hand.moveTo(0);
+    hand.moveTo(90);
     if(idle){
         wait(1);
     }
@@ -62,7 +62,7 @@ void BottleArm::down(bool idle){
 void BottleArm::spinDown(bool idle){
     #if USING_PETBOTTLE
 
-    spinner.moveTo(0);
+    spinner.moveTo(90);
     if(idle){
         wait(1);
     }
@@ -72,7 +72,7 @@ void BottleArm::spinDown(bool idle){
 void BottleArm::spinUp(bool idle){
     #if USING_PETBOTTLE
 
-    spinner.moveTo(90);
+    spinner.moveTo(0);
     if(idle){
         wait(1);
     }
