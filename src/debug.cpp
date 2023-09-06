@@ -146,6 +146,18 @@ void motors_test(DriveBase& driveBase){
 }
 
 
+void laser_test(R2* r2){
+    while(1){
+        printf("%d %d %d\n", r2->lasers.laser1.readDenoise(), r2->lasers.laser2.readDenoise(), r2->lasers.laser3.readDenoise());
+    }
+}
+
+void sw_test(R2* r2){
+    while(1){
+        printf("%d %d\n",r2->pusher.limit_sw.get(), r2->pass_detector.sw.get());
+    }
+    
+}
 
 void R2::debug(){
     //wait_seconds(10);
@@ -164,7 +176,7 @@ void R2::debug(){
     //speed_test(*driveBase.motors[1]);
     //show(driveBase);
 
-    dir_check(driveBase);
+    sw_test(this);
     //motor_test(*driveBase.motors[3]);
 }
 

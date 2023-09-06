@@ -108,5 +108,6 @@
 
 #define PASS_DETECT (PC_3)
 
+#define LS_1 (PC_11)
 
 #endif

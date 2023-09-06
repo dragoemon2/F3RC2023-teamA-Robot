@@ -27,7 +27,7 @@ R1::R1(): Robot(), bottleArm([this](int x){wait_seconds(x);}), containerArm([thi
     
 }
 #else
-R1::R1(): Robot(), containerArm([this](int x){wait_seconds(x);}), lasers(driveBase), bottleArm([this](int x){wait_seconds(x);})
+R1::R1(): Robot(), containerArm([this](int x){wait_seconds(x);}),lasers(driveBase), bottleArm([this](int x){wait_seconds(x);})
 {
     driveBase.attachLoop([this](){loop();});
 
@@ -83,11 +83,11 @@ void R1::run(unsigned int movement_id){
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         //lasers.front.activate(SOUTH, SOUTH_WALL_Y);
-        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 500, -PI/2);//コンテナ置き場手前に移動
         break;
 
     case GOTO_FIRST_DELIVERY:
-        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 300, -PI/2);
+        driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2);
         
         containerArm.close(true);
         bottleArm.down(false);
@@ -126,7 +126,7 @@ void R1::run(unsigned int movement_id){
 
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
-        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+100, SOUTH_WALL_Y + ROBOTSIZE + 500, -PI/2);//コンテナ置き場手前に移動
 
         break;
 
@@ -170,7 +170,7 @@ void R1::run(unsigned int movement_id){
 
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
         driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 550 + 300, -PI/2);
-        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 450, -PI/2);//コンテナ置き場手前に移動
+        driveBase.goTo(WEST_WALL_X+850+38+ROBOTSIZE+700, SOUTH_WALL_Y + ROBOTSIZE + 500, -PI/2);//コンテナ置き場手前に移動
         break;
 
     case GO_FRONTOF_POSTZONE:

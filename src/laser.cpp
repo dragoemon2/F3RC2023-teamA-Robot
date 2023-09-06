@@ -9,6 +9,7 @@ using namespace std;
 
 #define TEIKOU 155
 
+/*
 #if TEIKOU == 150
     #define DEFAULT_A (14334.0f)
     #define DEFAULT_B (-2605.8f)
@@ -16,6 +17,13 @@ using namespace std;
     #define DEFAULT_A (13043.0f)
     #define DEFAULT_B (-2374.0f)
 #endif
+
+*/
+
+
+
+#define DEFAULT_A (12903.0f)
+#define DEFAULT_B (-2287.0f)
 
 //ふつうに読む(8usほどかかる)
 int Laser::read()
@@ -103,6 +111,12 @@ void Laser::loadCalibrationFromFlash() {
 //回帰直線のA,Bの値をflashに書き込む(書いてない)
 void Laser::saveCalibrationToFlash() {
     //できたらここにキャリブレーション値をflashに書き込む処理を書きたい
+}
+
+void Laser::set(float a, float b) {
+    A = a;
+    B = b;
+
 }
 
 //初期化

@@ -14,6 +14,7 @@ public:
     int readDenoise(); //割り込みで実行するな!
     int read(); //割り込みで実行するな!
     void calibrate(int distance); //割り込みで実行するな!
+    void set(float a, float b);
     Laser(PinName pin); 
 
     void loadCalibrationFromFlash();

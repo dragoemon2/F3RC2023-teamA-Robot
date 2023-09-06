@@ -13,15 +13,21 @@
 class Pusher
 {
     public:
+        #if !USE_ESP_SW
+        Switch limit_sw;
+        #endif
         PwmOut pwmOut;
         DigitalOut dirOut;
         R2esp& esp32;
+        Timer timer;
+        
         Pusher(std::function<void(float)>, R2esp& esp32);
         void push(bool idle=true);
         void pull(bool idle=true);
 
     private:
         std::function<void(float)> wait;
+        int time;
 
 };
 

@@ -11,7 +11,7 @@ int LaserPos::read(){
     if(value > 0){
         last_value = value;
     }
-    printf("%d\n", value);
+    //printf("%d\n", value);
     return value;
 }
 
@@ -20,7 +20,7 @@ int LaserPos::readDenoise(){
     if(value > 0){
         last_value = value;
     }
-    printf("%d\n", value);
+    //printf("%d\n", value);
     return value;
 }
 

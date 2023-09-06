@@ -47,14 +47,28 @@ void R2::run(unsigned int movement_id){
     case R2_MOVEMENT::GOTO_FIRST_RECEIVE:
         driveBase.localization.setPosition(EAST_WALL_X-ROBOTSIZE,NORTH_WALL_Y-ROBOTSIZE-50,PI);
 
-        //lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        #if USE_FRONT_LASER
+        lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        #else
         lasers.rightback.activate(NORTH, NORTH_WALL_Y);
+        #endif
+
+        #if USE_BACK_LASER
         lasers.back.activate(EAST, EAST_WALL_X);
+        #endif
+
+        //ななめを減らす
+        driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,NORTH_WALL_Y-ROBOTSIZE-150,PI);
+        driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,SOUTH_WALL_Y+1200,PI);
 
         driveBase.goTo(EAST_WALL_X-1798-500+ROBOTSIZE+150,SOUTH_WALL_Y+1200,PI);
 
-        //lasers.pair.inactivate();
+        
+        #if USE_FRONT_LASER
+        lasers.pair.inactivate();
+        #else
         lasers.rightback.inactivate();
+        #endif
 
         driveBase.goTo(2200,SOUTH_WALL_Y+1200,PI);
 
@@ -66,35 +80,69 @@ void R2::run(unsigned int movement_id){
         break;
 
     case R2_MOVEMENT::GOTO_POSTZONE2:
+
+        //ななめを減らす
+        driveBase.goTo(2864,SOUTH_WALL_Y+1200,PI);
+        driveBase.rotateTo(PI/2);
+
         driveBase.goTo(2864,1920,PI/2);
 
-        //lasers.pair.activate(EAST, EAST_WALL_X);
+        #if USE_FRONT_LASER
+        lasers.pair.activate(EAST, EAST_WALL_X);
+        #else
         lasers.rightback.activate(EAST, EAST_WALL_X);
+        #endif
+
+        #if USE_BACK_LASER
         lasers.back.activate(SOUTH, -SOUTH_WALL_Y);
+        #endif
 
         driveBase.goTo(2864,2210,PI/2);
 
-        //lasers.pair.inactivate();
-        lasers.back.inactivate();
+        #if USE_FRONT_LASER
+        lasers.pair.inactivate();
+        #else
         lasers.rightback.inactivate();
+        #endif
 
-        //pusher.push(true);
-        //pusher.pull(false);
+        #if USE_BACK_LASER
+        lasers.back.inactivate();
+        #endif
+
+        pusher.push(true);
+        pusher.pull(false);
 
         break;
 
     case R2_MOVEMENT::GOTO_SECOND_RECEIVE:
-        driveBase.goTo(2864,1920,PI/2);
 
-        //lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        //ななめを減らす
+        driveBase.goTo(2864,SOUTH_WALL_Y+1200,PI/2);
+
+        driveBase.rotateTo(PI);
+
+        #if USE_FRONT_LASER
+        lasers.pair.activate(NORTH, NORTH_WALL_Y);
+        #else
         lasers.rightback.activate(NORTH, NORTH_WALL_Y);
+        #endif
+
+        #if USE_BACK_LASER
         lasers.back.activate(EAST, EAST_WALL_X);
+        #endif
 
         driveBase.goTo(2200,SOUTH_WALL_Y+1200,PI);
 
-        //lasers.pair.inactivate();
+        #if USE_FRONT_LASER
+        lasers.pair.inactivate();
+        #else
         lasers.rightback.inactivate();
+        #endif
+
+        #if USE_BACK_LASER
         lasers.back.inactivate();
+        #endif
+        
         break; 
 
     case R2_MOVEMENT::WAIT_FOR_SECOND_RECEIVE:
@@ -102,17 +150,26 @@ void R2::run(unsigned int movement_id){
         break;
 
     case R2_MOVEMENT::GOTO_POSTZONE3:
-        driveBase.goTo(4050, SOUTH_WALL_Y+1200, 0);
+        driveBase.goTo(4050, SOUTH_WALL_Y+1200, PI);
         driveBase.rotateTo(-PI/2);
         driveBase.goTo(4050,500,0);
-        //lasers.pair.activate(SOUTH, -SOUTH_WALL_Y);
+
+        #if USE_FRONT_LASER
+        lasers.pair.activate(SOUTH, -SOUTH_WALL_Y);
+        #else
         lasers.rightback.activate(SOUTH, -SOUTH_WALL_Y);
+        #endif
+
         driveBase.goTo(4280,213,0);
 
+        #if USE_FRONT_LASER
         lasers.pair.inactivate();
+        #else
+        lasers.rightback.inactivate();
+        #endif
 
-        //pusher.push(true);
-        //pusher.pull(false);
+        pusher.push(true);
+        pusher.pull(false);
 
         break;
 
