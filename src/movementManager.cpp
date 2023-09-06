@@ -176,8 +176,8 @@ void MovementManager::setTargetSpeed(){
         }else{
             targetSpeedD = 0;
         }
-        targetSpeedy = - joystick_filter(ljoystick_x)*HAND_SPEED_LEFT - joystick_filter(rjoystick_x)*HAND_SPEED_RIGHT;
-        targetSpeedx = - joystick_filter(ljoystick_y)*HAND_SPEED_LEFT - joystick_filter(rjoystick_y)*HAND_SPEED_RIGHT;
+        targetSpeedy = + joystick_filter(ljoystick_x)*HAND_SPEED_LEFT + joystick_filter(rjoystick_x)*HAND_SPEED_RIGHT;
+        targetSpeedx = + joystick_filter(ljoystick_y)*HAND_SPEED_LEFT + joystick_filter(rjoystick_y)*HAND_SPEED_RIGHT;
 
 
     }else if(mode == AUTO_MODE && !flag){
@@ -190,8 +190,8 @@ void MovementManager::setTargetSpeed(){
             targetSpeedD = 0;
         }
 
-        targetSpeedy = - joystick_filter(ljoystick_x)*ADJUSTMENT_SPEED_LEFT - joystick_filter(rjoystick_x)*ADJUSTMENT_SPEED_RIGHT;
-        targetSpeedx = - joystick_filter(ljoystick_y)*ADJUSTMENT_SPEED_LEFT - joystick_filter(rjoystick_y)*ADJUSTMENT_SPEED_RIGHT;
+        targetSpeedy = + joystick_filter(ljoystick_x)*ADJUSTMENT_SPEED_LEFT + joystick_filter(rjoystick_x)*ADJUSTMENT_SPEED_RIGHT;
+        targetSpeedx = + joystick_filter(ljoystick_y)*ADJUSTMENT_SPEED_LEFT + joystick_filter(rjoystick_y)*ADJUSTMENT_SPEED_RIGHT;
     }
 }
 
