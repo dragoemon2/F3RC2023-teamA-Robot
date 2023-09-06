@@ -18,7 +18,7 @@
 #define CONSIDER_LASER_ERROR (1)
 
 #if USING_R1
-#define USING_CONTROLLER (0)
+#define USING_CONTROLLER (1)
 
 #endif
 

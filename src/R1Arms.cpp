@@ -92,6 +92,7 @@ ContainerArm::ContainerArm(std::function<void(int)> f): aircylinder(SOLENOID)
 
 void ContainerArm::open(bool idle){
     aircylinder.open();
+    opened = true;
     if(idle){
         wait(1);
     }
@@ -99,6 +100,7 @@ void ContainerArm::open(bool idle){
 
 void ContainerArm::close(bool idle){
     aircylinder.close();
+    opened = false;
     if(idle){
         wait(1);
     }

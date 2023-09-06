@@ -237,10 +237,17 @@ void R1::moveHand(){
     driveBase.goPtrStart(&mm.targetSpeedx, &mm.targetSpeedy, &mm.targetSpeedD, false, false);
     while(mm.mode == HAND_MODE){
         mm.setTargetSpeed();
+        if(mm.containerArmMove()){
+            if(containerArm.opened){
+                containerArm.close();
+            }else{
+                containerArm.open();
+            }
+        }
         wait_ns(1);
         loop();
         printf("\rhand_mode target_speed: %d %d %d          ", int(mm.targetSpeedx), int(mm.targetSpeedy), int(180/PI*mm.targetSpeedD));
-        fflush(stdout);
+        fflush(stdout);                                                                                                    
     }
     printf("\n");
 }
@@ -271,8 +278,8 @@ void R1::loop(){
     if(mm.ConnectionTimeOutOccured()){
         mm.mode = COMPLETELY_AUTO_MODE;
     }
-    //printf("%d\n", mm._s1);
-    //printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
+    printf("%d\n", mm._s1);
+    printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
 }
 
 void R1::wait_seconds(float seconds){

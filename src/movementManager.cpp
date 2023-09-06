@@ -125,6 +125,15 @@ void MovementManager::update(char* str){
     last_hand_mode_button = (button_mask >> Button::TRIANGLE) & 1;
 
 
+    if(((button_mask >> Button::CROSS) & 1) && !last_container_button){
+        //mode = HAND_MODE;
+        container_arm_flag = true;
+    }
+    last_container_button = (button_mask >> Button::CROSS) & 1;
+
+    
+
+
     connected_before = true;
     last_connected_time = duration_cast<milliseconds>(timer.elapsed_time()).count();
 }
@@ -181,5 +190,17 @@ bool MovementManager::MotionTimeOutOccured(){
 bool MovementManager::ConnectionTimeOutOccured(){
     return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
 }
+
+bool  MovementManager::containerArmMove(){
+    //return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
+    if(container_arm_flag){
+        container_arm_flag = false;
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 
 #endif

@@ -47,6 +47,8 @@ class MovementManager{
         bool last_hand_mode_button = false;
         bool last_auto_mode_button = false;
 
+        bool last_container_button = false;
+
         int last_connected_time;
 
         Timer timer;
@@ -82,6 +84,10 @@ class MovementManager{
         void sendMessageToController(int message);
         bool MotionTimeOutOccured();
         bool ConnectionTimeOutOccured();
+
+        bool containerArmMove();
+
+        bool container_arm_flag=false;
 
         MovementManager();
 

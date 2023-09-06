@@ -107,13 +107,14 @@ void laser_test(R1* r1){
 }
 
 void arm_test(R1* r1){
+    /*
     while(1){
         r1->bottleArm.up(true);
         printf("hoge\n");
         r1->bottleArm.down(true);
         printf("hoge\n");
 
-    }
+    }*/
 
     
 
@@ -127,15 +128,15 @@ void arm_test(R1* r1){
     */
 
 
-    /*
+    
     printf("hoge\n");
     //r1->bottleArm.up();
     r1->containerArm.open();
     printf("piyo\n");
-    r1->wait_seconds(3);
+    //r1->wait_seconds(3);
     r1->containerArm.close();
 
-    */
+    
 
 
     while(1){
@@ -162,7 +163,7 @@ void R1::debug(){
     //motor_test(*driveBase.motors[1]);
     //dir_check(driveBase);
 
-    dir_check(driveBase);
+    arm_test(this);
 }
 
 

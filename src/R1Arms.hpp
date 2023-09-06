@@ -38,6 +38,7 @@ class ContainerArm
         void close(bool idle=true);
         void open(bool idle=true);
         ContainerArm(std::function<void(int)> f);
+        bool opened=true;
     private:
         std::function<void(int)> wait;
 };

@@ -46,7 +46,7 @@ void TOFLaser::restart(){
     //再接続
     sensor.stopContinuous();
     sensor.setAddress(DEFAULT_ADDRESS);
-    init();
+    //init();
 }
 
 //値の読み取り
