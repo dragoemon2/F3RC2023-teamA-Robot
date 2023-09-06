@@ -116,25 +116,19 @@ void arm_test(R1* r1){
 
     }*/
 
-    
-
-    /*
-
     r1->bottleArm.close();
     r1->bottleArm.spinDown();
     r1->bottleArm.open();
     r1->bottleArm.spinUp();
 
-    */
-
-
-    
+    /*
     printf("hoge\n");
     //r1->bottleArm.up();
     r1->containerArm.open();
     printf("piyo\n");
     //r1->wait_seconds(3);
     r1->containerArm.close();
+    */
 
     
 

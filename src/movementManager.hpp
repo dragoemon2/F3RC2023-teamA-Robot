@@ -49,6 +49,8 @@ class MovementManager{
 
         bool last_container_button = false;
 
+        bool last_updown_button = false;
+
         int last_connected_time;
 
         Timer timer;
@@ -86,8 +88,10 @@ class MovementManager{
         bool ConnectionTimeOutOccured();
 
         bool containerArmMove();
+        bool upDownArmMove();
 
         bool container_arm_flag=false;
+        bool updown_flag=false;
 
         MovementManager();
 

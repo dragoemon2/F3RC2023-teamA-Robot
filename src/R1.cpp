@@ -239,9 +239,11 @@ void R1::moveHand(){
         mm.setTargetSpeed();
         if(mm.containerArmMove()){
             if(containerArm.opened){
-                containerArm.close();
+                containerArm.close(false);
+                printf("close\n");
             }else{
-                containerArm.open();
+                containerArm.open(false);
+                printf("open\n");
             }
         }
         wait_ns(1);
@@ -275,11 +277,13 @@ void R1::loop(){
         driveBase.stopMovement();
     }
 
+    
+
     if(mm.ConnectionTimeOutOccured()){
-        mm.mode = COMPLETELY_AUTO_MODE;
+        //mm.mode = COMPLETELY_AUTO_MODE;
     }
-    printf("%d\n", mm._s1);
-    printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
+    //printf("%d\n", mm._s1);
+    //printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
 }
 
 void R1::wait_seconds(float seconds){

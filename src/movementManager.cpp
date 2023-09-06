@@ -64,6 +64,10 @@ MovementManager::MovementManager()
     #else
     mode = COMPLETELY_AUTO_MODE;
     #endif
+
+    #if !USE_AUTO_MODE
+    mode = HAND_MODE;
+    #endif
     timer.start();
 }
 
@@ -92,12 +96,14 @@ void MovementManager::update(char* str){
 
     //次の実行
     if(((button_mask >> Button::CIRCLE) & 1) && !last_next_button){
+        #if USE_AUTO_MODE
         if(mode == HAND_MODE){
             flag = false;
             mode = AUTO_MODE;
         }else{
             flag = true;
         }
+        #endif
     }
     last_next_button = (button_mask >> Button::CIRCLE) & 1;
 
@@ -118,11 +124,19 @@ void MovementManager::update(char* str){
     }
     last_increment_button = (button_mask >> Button::RIGHT) & 1;
 
+    /*
+
 
     if(((button_mask >> Button::TRIANGLE) & 1) && !last_hand_mode_button){
         mode = HAND_MODE;
     }
     last_hand_mode_button = (button_mask >> Button::TRIANGLE) & 1;
+    */
+
+    if(((button_mask >> Button::TRIANGLE) & 1) && !last_updown_button){
+        updown_flag = true;
+    }
+    last_updown_button = (button_mask >> Button::TRIANGLE) & 1;
 
 
     if(((button_mask >> Button::CROSS) & 1) && !last_container_button){
@@ -130,6 +144,11 @@ void MovementManager::update(char* str){
         container_arm_flag = true;
     }
     last_container_button = (button_mask >> Button::CROSS) & 1;
+
+
+
+
+
 
     
 
@@ -195,6 +214,16 @@ bool  MovementManager::containerArmMove(){
     //return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
     if(container_arm_flag){
         container_arm_flag = false;
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool  MovementManager::upDownArmMove(){
+    //return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
+    if(updown_flag){
+        updown_flag = false;
         return true;
     }else{
         return false;
