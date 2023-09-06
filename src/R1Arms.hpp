@@ -24,9 +24,9 @@ class BottleArm
         void down(bool idle=true);
         void spinDown(bool idle=true);
         void spinUp(bool idle=true);
-        BottleArm(std::function<void(int)> f);
+        BottleArm(std::function<void(float)> f);
     private:
-        std::function<void(int)> wait = [](int x){return;};
+        std::function<void(float)> wait = [](float x){return;};
         
 };
 

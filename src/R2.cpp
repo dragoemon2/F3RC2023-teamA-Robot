@@ -58,8 +58,8 @@ void R2::run(unsigned int movement_id){
         #endif
 
         //ななめを減らす
-        driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,NORTH_WALL_Y-ROBOTSIZE-150,PI);
-        driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,SOUTH_WALL_Y+1200,PI);
+        //driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,NORTH_WALL_Y-ROBOTSIZE-150,PI);
+        //driveBase.goTo(EAST_WALL_X-ROBOTSIZE-150,SOUTH_WALL_Y+1200,PI);
 
         driveBase.goTo(EAST_WALL_X-1798-500+ROBOTSIZE+150,SOUTH_WALL_Y+1200,PI);
 
@@ -142,7 +142,7 @@ void R2::run(unsigned int movement_id){
         #if USE_BACK_LASER
         lasers.back.inactivate();
         #endif
-        
+
         break; 
 
     case R2_MOVEMENT::WAIT_FOR_SECOND_RECEIVE:

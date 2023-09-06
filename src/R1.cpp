@@ -46,6 +46,7 @@ void R1::game(){
     mm.connected_before = true;
     #endif
 
+    //強制
     mm.mode = HAND_MODE;
 
     next();
@@ -264,8 +265,8 @@ void R1::loop(){
     if(mm.ConnectionTimeOutOccured()){
         mm.mode = COMPLETELY_AUTO_MODE;
     }
-    printf("%d\n", mm._s1);
-    printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
+    //printf("%d\n", mm._s1);
+    //printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
 }
 
 void R1::wait_seconds(float seconds){

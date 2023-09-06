@@ -9,7 +9,7 @@
 
 Pusher::Pusher(std::function<void(float)> f, R2esp& esp32):
 #if !USE_ESP_SW
-    limit_sw(LS_1),
+    limit_sw(LS_1, false),
 #endif
     pwmOut(PWM_6),
     dirOut(DIR_6),
@@ -21,6 +21,8 @@ Pusher::Pusher(std::function<void(float)> f, R2esp& esp32):
 void Pusher::push(bool idle){
     dirOut.write(0);
     pwmOut.write(-0.3);
+
+    timer.start();
 
     //limit_sw.riseAttachOnce([this](){pwmOut.write(0);});
 

@@ -6,7 +6,7 @@
 #include "pins.hpp"
 
 
-BottleArm::BottleArm(std::function<void(int)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
+BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_1_SIGNAL), hand(SV_2_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
 {
     wait = f;
 }
@@ -16,7 +16,7 @@ void BottleArm::open(bool idle){
     #if USING_PETBOTTLE
     hand.moveTo(90);
     if(idle){
-        wait(1000);
+        wait(1);
     }
     #endif
 }
@@ -25,7 +25,7 @@ void BottleArm::close(bool idle){
     #if USING_PETBOTTLE
     hand.moveTo(0);
     if(idle){
-        wait(1000);
+        wait(1);
     }
     #endif
 }
@@ -64,7 +64,7 @@ void BottleArm::spinDown(bool idle){
 
     spinner.moveTo(0);
     if(idle){
-        wait(1000);
+        wait(1);
     }
     #endif
 }
@@ -74,14 +74,14 @@ void BottleArm::spinUp(bool idle){
 
     spinner.moveTo(90);
     if(idle){
-        wait(1000);
+        wait(1);
     }
     #endif
 }
 
 
 
-ContainerArm::ContainerArm(std::function<void(int)> f): aircylinder(A0)
+ContainerArm::ContainerArm(std::function<void(int)> f): aircylinder(SOLENOID)
 {
     wait = f;
 }
@@ -90,14 +90,14 @@ ContainerArm::ContainerArm(std::function<void(int)> f): aircylinder(A0)
 void ContainerArm::open(bool idle){
     aircylinder.open();
     if(idle){
-        wait(1000);
+        wait(1);
     }
 }
 
 void ContainerArm::close(bool idle){
     aircylinder.close();
     if(idle){
-        wait(1000);
+        wait(1);
     }
 }
 

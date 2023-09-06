@@ -91,10 +91,10 @@ void Buzzer::next(){
             index = -10;
         }
     }else if(index >= 0){
-        digitalout.write(array[index]);
+        //digitalout.write(array[index]);
         _s1 = array[index];
     }else{
-        digitalout.write(0);
+        //digitalout.write(0);
     }
     index++;
 }

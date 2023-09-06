@@ -34,7 +34,7 @@ Robot::Robot()
     timer.start();
     driveBase.attachLoop([this]{loop();});
     init_arms();
-    init_status();
+    //init_status();
 
     
 }
@@ -94,7 +94,7 @@ void Robot::init_status(){
         driveBase.localization.setPosition(X, Y, D);
 
         //警告音の再生
-        buzzer.alart(Error::UNPREDICTED);
+        //buzzer.alart(Error::UNPREDICTED);
     }else{
         driveBase.localization.setPosition(0, 0, 0);
     }

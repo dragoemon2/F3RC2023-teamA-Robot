@@ -47,7 +47,8 @@
 
 
 
-#define BUZZER (PA_5)
+//#define BUZZER (PA_5)
+#define BUZZER (PB_3)
 
 #if USING_R1
 
@@ -81,6 +82,8 @@
 #define USRBTN1 (PC_0)
 #define USRBTN2 (PC_3)
 
+#define SOLENOID (PB_7)
+
 
 //-----esp32-----
 
@@ -109,5 +112,6 @@
 #define PASS_DETECT (PC_3)
 
 #define LS_1 (PC_11)
+
 
 #endif

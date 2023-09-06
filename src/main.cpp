@@ -44,14 +44,14 @@ void mbed_error_hook(const mbed_error_ctx *error_context)
 R2 r2;
 
 int main(){
+    //printf("hoge");
+    r2.game();
     //r2.init_led();
     //r2.debug();
-    r2.debug();
+    //r2.debug();
     while(1){
 
     }
-    
-
 }
 
 

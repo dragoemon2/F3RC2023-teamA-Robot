@@ -14,7 +14,7 @@ class Pusher
 {
     public:
         #if !USE_ESP_SW
-        Switch limit_sw;
+        SimpleSwitch limit_sw;
         #endif
         PwmOut pwmOut;
         DigitalOut dirOut;
