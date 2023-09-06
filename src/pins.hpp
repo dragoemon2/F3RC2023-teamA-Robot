@@ -26,6 +26,8 @@
 #define DIR_4 (PB_2)
 */
 
+
+
 //motor0
 #define PWM_1 (PB_1) 
 #define DIR_1 (PC_9)
@@ -55,7 +57,7 @@
 //-----アーム-----
 //DCモーター
 // #define PWM_5 (PB_8)
-#define PWM_6 (PB_9)
+#define PWM_6 (PB_6)
 #define DIR_6 (PB_10)
 
 //サーボ
