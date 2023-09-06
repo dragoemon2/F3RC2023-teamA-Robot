@@ -11,7 +11,7 @@
 
 
 #define MOTION_TIME_OUT (500)
-#define CONNECTION_TIME_OUT (5000)
+#define CONNECTION_TIME_OUT (10000)
 
 /*
 #define ADJUSTMENT_SPEED_LEFT (100.0f)
@@ -220,7 +220,7 @@ bool  MovementManager::containerArmMove(){
     }
 }
 
-bool  MovementManager::upDownArmMove(){
+bool MovementManager::upDownArmMove(){
     //return (connected_before && duration_cast<milliseconds>(timer.elapsed_time()).count() - last_connected_time > CONNECTION_TIME_OUT);
     if(updown_flag){
         updown_flag = false;

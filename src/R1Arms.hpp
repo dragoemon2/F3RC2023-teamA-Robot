@@ -22,9 +22,11 @@ class BottleArm
         void open(bool idle=true);
         void up(bool idle=true);
         void down(bool idle=true);
+        void up_down(bool idle=true);
         void spinDown(bool idle=true);
         void spinUp(bool idle=true);
         BottleArm(std::function<void(float)> f);
+        bool high=false;
     private:
         std::function<void(float)> wait = [](float x){return;};
         

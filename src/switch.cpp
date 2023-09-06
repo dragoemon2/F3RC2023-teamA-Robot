@@ -128,3 +128,9 @@ void SimpleSwitch::fallAttachOnce(std::function<void(void)> f){
     monitoring = -1;
     ticker.attach([this](){check();}, std::chrono::milliseconds(30));
 }
+
+void SimpleSwitch::detach(){
+    func = []{};
+    ticker.detach();
+    monitoring = 0;
+}

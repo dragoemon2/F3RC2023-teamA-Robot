@@ -41,7 +41,7 @@
 #define DIR_4 (PB_2)
 
 //motor3
-#define PWM_5 (PB_8)
+#define PWM_5 (PC_7)
 #define DIR_5 (PC_4)
 
 #define LED1 (PA_15)
@@ -57,6 +57,7 @@
 //-----アーム-----
 //DCモーター
 // #define PWM_5 (PB_8)
+
 #define PWM_6 (PB_6)
 #define DIR_6 (PB_10)
 

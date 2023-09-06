@@ -21,8 +21,8 @@ R1 r1;
 int main(){
     //開始
     printf("start\n");
-    //r1.debug();
     r1.game();
+    //r1.game();
     //pin_check();
     
 

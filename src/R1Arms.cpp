@@ -35,19 +35,23 @@ void BottleArm::close(bool idle){
         wait(1);
     }
     #endif
-    
+
     #endif
 }
 
 
 void BottleArm::up(bool idle){
+
+    high = true;
     //slider.moveTo();
+
     #if USING_PETBOTTLE
+    limit_switch1.detach();
+    limit_switch2.detach();
+
     dirOut.write(0);
-    pwmOut.write(0.1);
+    pwmOut.write(0.3);
     
-
-
     //bool finisihed=false;
     
     limit_switch1.riseAttachOnce([this](){pwmOut.write(0);});
@@ -56,22 +60,30 @@ void BottleArm::up(bool idle){
             wait(0.001);
         }
     }
+    //wait(0.001);
     #endif
 }
 
 void BottleArm::down(bool idle){
+    high = false;
+
     //slider.moveTo();
     #if USING_PETBOTTLE
 
-    
+    limit_switch1.detach();
+    limit_switch2.detach();
+
     dirOut.write(1);
-    pwmOut.write(0.1);
+    pwmOut.write(0.3);
+
+
     limit_switch2.riseAttachOnce([this](){pwmOut.write(0);});
     if(idle){
         while(!limit_switch2.get()){
             wait(0.001);
         }
     }
+    //wait(0.001);
 
     #endif
 }
@@ -105,6 +117,15 @@ void BottleArm::spinUp(bool idle){
 
 
     #endif
+}
+
+
+void BottleArm::up_down(bool idle){
+    if(high){
+        up(idle);
+    }else{
+        down(idle);
+    }
 }
 
 

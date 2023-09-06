@@ -36,6 +36,7 @@ class SimpleSwitch
         void check();
         void riseAttachOnce(std::function<void(void)> f);
         void fallAttachOnce(std::function<void(void)> f);
+        void detach();
         bool high_on_pushed;
         int monitoring=0;
         std::function<void(void)> func;

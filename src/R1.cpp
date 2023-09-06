@@ -237,6 +237,8 @@ void R1::moveHand(){
     driveBase.goPtrStart(&mm.targetSpeedx, &mm.targetSpeedy, &mm.targetSpeedD, false, false);
     while(mm.mode == HAND_MODE){
         mm.setTargetSpeed();
+
+
         if(mm.containerArmMove()){
             if(containerArm.opened){
                 containerArm.close(false);
@@ -245,6 +247,13 @@ void R1::moveHand(){
                 containerArm.open(false);
                 printf("open\n");
             }
+
+        
+        if(mm.upDownArmMove()){
+            bottleArm.up_down(false);
+        }
+
+        
         }
         wait_ns(1);
         loop();
@@ -281,6 +290,7 @@ void R1::loop(){
 
     if(mm.ConnectionTimeOutOccured()){
         //mm.mode = COMPLETELY_AUTO_MODE;
+        driveBase.stopMovement();
     }
     //printf("%d\n", mm._s1);
     //printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(motor0.encoder.getAmount()), int(motor1.encoder.getAmount()), int(motor2.encoder.getAmount()), int(motor3.encoder.getAmount()));
