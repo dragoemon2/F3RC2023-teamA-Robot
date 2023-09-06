@@ -46,7 +46,7 @@ void R1::game(){
     mm.connected_before = true;
     #endif
 
-    //強制
+    
     mm.mode = HAND_MODE;
 
     next();
@@ -97,6 +97,7 @@ void R1::run(unsigned int movement_id){
         //bottleArm.open(true);
 
         driveBase.goTo(WEST_WALL_X + 1900, SOUTH_WALL_Y + 1200, 0);
+
         break;
     
     case GOTO_SECOND_PRODUCT_STORAGE:
@@ -117,9 +118,14 @@ void R1::run(unsigned int movement_id){
         driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 750, -PI/2);
         driveBase.goTo(WEST_WALL_X + ROBOTSIZE + 200, SOUTH_WALL_Y + ROBOTSIZE + 400, -PI/2);
 
+        #if !GO_POSTZONE3
+        mm.movement_id = GOTO_THIRD_CONTAINER_STORAGE - 1;
+        #endif
+
         break;
 
     case GOTO_SECOND_CONTAINER_STORAGE:
+        
         driveBase.goTo(driveBase.localization.posX, SOUTH_WALL_Y + ROBOTSIZE + 200, -PI/2);
 
         bottleArm.close(true);

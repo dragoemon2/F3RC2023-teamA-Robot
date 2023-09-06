@@ -22,7 +22,7 @@ R1Lasers::R1Lasers(DriveBase& driveBase):
     //back(NORTH, NORTH_WALL_Y, laser3),
     front(SOUTH, SOUTH_WALL_Y, laser4)
 {
-    init();
+    //init();
     driveBase.localization.addLocalization([this](float* X, float* Y, float* D) { scan(X, Y, D); }, 0);
 }
 

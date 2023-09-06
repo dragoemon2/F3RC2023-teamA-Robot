@@ -6,7 +6,7 @@
 #include "pins.hpp"
 
 
-BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_6), dirOut(DIR_6), spinner(SV_2_SIGNAL), hand(SV_1_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
+BottleArm::BottleArm(std::function<void(float)> f): pwmOut(PWM_5), dirOut(DIR_5), spinner(SV_2_SIGNAL), hand(SV_1_SIGNAL), limit_switch1(LS_1, false), limit_switch2(LS_2, false)
 {
     wait = f;
 }
@@ -35,7 +35,10 @@ void BottleArm::up(bool idle){
     //slider.moveTo();
     #if USING_PETBOTTLE
     dirOut.write(0);
-    pwmOut.write(0.3);
+    pwmOut.write(0.1);
+
+    //bool finisihed=false;
+    
     limit_switch1.riseAttachOnce([this](){pwmOut.write(0);});
     if(idle){
         while(!limit_switch1.get()){
@@ -49,7 +52,7 @@ void BottleArm::down(bool idle){
     //slider.moveTo();
     #if USING_PETBOTTLE
     dirOut.write(1);
-    pwmOut.write(0.3);
+    pwmOut.write(0.1);
     limit_switch2.riseAttachOnce([this](){pwmOut.write(0);});
     if(idle){
         while(!limit_switch2.get()){

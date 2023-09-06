@@ -51,6 +51,8 @@ void TOFLaser::restart(){
 
 //値の読み取り
 int TOFLaser::read(){
+    return -1;
+    /*
     int value = last_value;
     if(sensor.readReg(VL53L0X::RESULT_INTERRUPT_STATUS) & 0x07){
         value = sensor.readRangeContinuousMillimeters(false);
@@ -83,6 +85,7 @@ int TOFLaser::read(){
     }
 
     return value;
+    */
 }
 
 int TOFLaser::readDenoise(){

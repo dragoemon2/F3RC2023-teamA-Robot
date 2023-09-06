@@ -35,9 +35,16 @@ R2::R2():
 
 
 void R2::game(){
+    #if GO_POSTZONE3
     for(int i=0;i<=R2_MOVEMENT::GOTO_POSTZONE3;i++){
         run(i);
     }
+    #else
+    for(int i=0;i<=R2_MOVEMENT::GOTO_POSTZONE2;i++){
+        run(i);
+    }
+
+    #endif
 }
 
 
@@ -70,7 +77,12 @@ void R2::run(unsigned int movement_id){
         lasers.rightback.inactivate();
         #endif
 
+        #if CONSIDER_LASER_ERROR
+        driveBase.goTo(2200,SOUTH_WALL_Y+800,PI);
+        driveBase.localization.setPosition(2200,SOUTH_WALL_Y+1200,PI);
+        #else
         driveBase.goTo(2200,SOUTH_WALL_Y+1200,PI);
+        #endif
 
         lasers.back.inactivate();
         break;
@@ -96,6 +108,8 @@ void R2::run(unsigned int movement_id){
         #if USE_BACK_LASER
         lasers.back.activate(SOUTH, -SOUTH_WALL_Y);
         #endif
+
+        
 
         driveBase.goTo(2864,2210,PI/2);
 

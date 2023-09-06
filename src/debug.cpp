@@ -8,7 +8,7 @@
 void dir_check(DriveBase& driveBase){
     driveBase.attachLoop([&driveBase]{printf("%d,%d,%d| %d %d %d %d\n",int(driveBase.localization.posX), int(driveBase.localization.posY), int(180/PI*driveBase.localization.direction), int(driveBase.motors[0]->encoder.getAmount()), int(driveBase.motors[1]->encoder.getAmount()), int(driveBase.motors[2]->encoder.getAmount()), int(driveBase.motors[3]->encoder.getAmount()));});
     //driveBase.goTo(1000,0,0);
-    driveBase.runNoEncoder(0,0,0,0.3,60);
+    driveBase.runNoEncoder(0,0,0,0.05,60);
     //driveBase.runNoEncoder(0,0,0,0,5);
     while(1){
 
@@ -107,20 +107,24 @@ void laser_test(R1* r1){
 }
 
 void arm_test(R1* r1){
-    //r1->bottleArm.down();
-    //r1->bottleArm.up();
+    while(1){
+        r1->bottleArm.up(true);
+        printf("hoge\n");
+        r1->bottleArm.down(true);
+        printf("hoge\n");
 
-    //r1->bottleArm.spinDown();
+    }
+
     
+
+    /*
+
     r1->bottleArm.close();
     r1->bottleArm.spinDown();
-    //r1->bottleArm.spinDown();
     r1->bottleArm.open();
     r1->bottleArm.spinUp();
 
-    //r1->bottleArm.open();
-    //r1->bottleArm.spinDown();
-    //r1->bottleArm.open();
+    */
 
 
     /*
@@ -153,10 +157,12 @@ void R1::debug(){
     wait_seconds(3600);
     */
     //show(driveBase);
-    arm_test(this);
+    //arm_test(this);
     //laser_test(this);
     //motor_test(*driveBase.motors[1]);
     //dir_check(driveBase);
+
+    dir_check(driveBase);
 }
 
 

@@ -39,6 +39,8 @@ void Pusher::push(bool idle){
     }
     #endif
 
+    //wait(1);
+
     pwmOut.write(0);
 
     time = timer.read_ms();
@@ -71,7 +73,7 @@ void Pusher::pull(bool idle){
     timer.start();
 
     while(timer.read_ms() < time){
-        wait(0.001);
+        //wait(0.001);
     }
 
     pwmOut.write(0);
@@ -96,7 +98,7 @@ R1Detector::R1Detector(std::function<void(float)> f): sw(PC_3)
 
 void R1Detector::waitForDetection(){
     while(!sw.get()){
-        wait(0.001);
+        //wait(0.001);
     }
 }
 

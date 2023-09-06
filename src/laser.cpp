@@ -20,8 +20,6 @@ using namespace std;
 
 */
 
-
-
 #define DEFAULT_A (12903.0f)
 #define DEFAULT_B (-2287.0f)
 
